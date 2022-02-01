@@ -1,0 +1,8 @@
+<CheckBox xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cbSpec"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAlignment="viewEnd"
+    android:textSize="@dimen/_10ssp"
+    tools:text="@string/property_specs" />

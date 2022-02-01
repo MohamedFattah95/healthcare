@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_back" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorGrayLight2"
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/_16sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:background="@drawable/corner_border_rect_gray"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_1sdp">
+
+                    <TextView
+                        android:id="@+id/tvSearch"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_blue_corners_verylow"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:drawableEnd="@drawable/ic_search"
+                        android:gravity="center"
+                        android:paddingHorizontal="@dimen/_8sdp"
+                        android:paddingVertical="@dimen/_4sdp"
+                        android:text="@string/search"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_10ssp"
+                        tools:ignore="UseCompatTextViewDrawableXml" />
+
+                    <TextView
+                        android:id="@+id/tvPhoneSearch"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="@dimen/_2sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_blue_corners_verylow"
+                        android:backgroundTint="@color/white"
+                        android:drawableEnd="@drawable/ic_smartphone"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:drawableTint="@color/colorGrayDark"
+                        android:gravity="center"
+                        android:paddingHorizontal="@dimen/_8sdp"
+                        android:paddingVertical="@dimen/_4sdp"
+                        android:text="@string/search_by_phone"
+                        android:textColor="@color/colorGrayDark"
+                        android:textSize="@dimen/_10ssp"
+                        tools:ignore="UnusedAttribute,UseCompatTextViewDrawableXml" />
+
+                    <TextView
+                        android:id="@+id/tvQRSearch"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_blue_corners_verylow"
+                        android:backgroundTint="@color/white"
+                        android:drawableEnd="@drawable/ic_qr"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:drawableTint="@color/colorGrayDark"
+                        android:gravity="center"
+                        android:paddingHorizontal="@dimen/_8sdp"
+                        android:paddingVertical="@dimen/_4sdp"
+                        android:text="@string/search_qr"
+                        android:textColor="@color/colorGrayDark"
+                        android:textSize="@dimen/_10ssp"
+                        tools:ignore="UnusedAttribute,UseCompatTextViewDrawableXml" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:drawableStart="@drawable/ic_location_flags"
+                    android:drawablePadding="@dimen/_4sdp"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:text="@string/location"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp"
+                    tools:ignore="UseCompatTextViewDrawableXml" />
+
+                <TextView
+                    android:id="@+id/tvLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:background="@drawable/bg_corner_white_low_redius"
+                    android:drawableStart="@drawable/ic_target"
+                    android:drawablePadding="@dimen/_4sdp"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:padding="@dimen/_6sdp"
+                    android:text="@string/current_location"
+                    android:textColor="@color/colorGrayDark"
+                    android:textSize="@dimen/_10ssp"
+                    tools:ignore="UseCompatTextViewDrawableXml" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:text="@string/property_type"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp"
+                    tools:ignore="UseCompatTextViewDrawableXml" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:background="@drawable/bg_corner_white_low_redius"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/sp_property_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:drawableStart="@drawable/ic_filter"
+                android:drawablePadding="@dimen/_4sdp"
+                android:drawableTint="@color/colorPrimary"
+                android:ellipsize="end"
+                android:lines="1"
+                android:maxLines="1"
+                android:text="@string/filter"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold"
+                tools:ignore="UnusedAttribute,UseCompatTextViewDrawableXml" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDynamicSpecs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginVertical="@dimen/_16sdp"
+                android:paddingVertical="@dimen/_8sdp"
+                android:text="@string/search"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold"
+                app:icon="@drawable/ic_search"
+                app:iconGravity="textEnd"
+                app:iconSize="@dimen/_16sdp" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/cbInTwoWeeks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:text="@string/last_2_weeks"
+                android:textColor="@color/colorGrayDarker"
+                android:textSize="@dimen/_10ssp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

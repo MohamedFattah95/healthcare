@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryLight">#7a7cff</color>
+    <color name="colorPrimary">#304ffe</color>
+    <color name="colorPrimaryDark">#0026ca</color>
+    <color name="colorAccent">#d50000</color>
+    <color name="light_gray">#dbdbdb</color>
+    <color name="semi_gray">#979797</color>
+    <color name="dark_gray">#696969</color>
+    <color name="bg_color">#f7f7f7</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="black_effective">#2a2a2a</color>
+    <color name="transparent">#00000000</color>
+
+    <!--Design colors-->
+    <color name="red_dark2">#D85A1B</color>
+    <color name="green">#32944C</color>
+    <color name="light_green">#78DC96</color>
+
+    <!-- App Colors -->
+
+    <color name="colorGrayLight">#E5E5E5</color>
+
+    <!-- Common Colors -->
+    <color name="colorGold">#FFD700</color>
+    <color name="colorOrangeLite2">#FFD391</color>
+    <color name="colorGray">#EFEFEF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorGrayExtraLite">#EAEAEA</color>
+    <color name="colorGraySemiDark">#bfbfbf</color>
+    <color name="colorGrayLight2">#F3F3F3</color>
+    <color name="colorOrangeDark">#FBAD1A</color>
+    <color name="colorGrayDark">#6A757B</color>
+    <color name="colorGrayDarker">#585858</color>
+    <color name="colorGrayDefault">#808080</color>
+    <color name="translucent_black">#50000000</color>
+</resources>

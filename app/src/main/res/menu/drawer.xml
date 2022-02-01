@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/navHome"
+            android:icon="@drawable/ic_home_menu"
+            android:title="@string/home_menu" />
+
+        <item
+            android:id="@+id/navDoctors"
+            android:icon="@drawable/ic_doctor"
+            android:title="@string/doctors" />
+
+        <item
+            android:id="@+id/navFavs"
+            android:icon="@drawable/ic_like2"
+            android:title="@string/my_favorites" />
+
+        <item
+            android:id="@+id/navCommission"
+            android:icon="@drawable/ic_cash"
+            android:title="@string/commission" />
+
+        <item
+            android:id="@+id/navAddCommercial"
+            android:icon="@drawable/ic_contract"
+            android:title="@string/add_commercial" />
+
+        <item
+            android:id="@+id/navSettings"
+            android:icon="@drawable/ic_gear"
+            android:title="@string/settings_menu" />
+
+        <item
+            android:id="@+id/navLogout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/logout_menu" />
+
+    </group>
+
+</menu>
+

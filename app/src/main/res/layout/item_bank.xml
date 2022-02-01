@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvBankBg"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:visibility="visible"
+    app:cardBackgroundColor="@color/colorGraySemiDark"
+    app:cardCornerRadius="@dimen/_5sdp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/bankImg"
+        android:layout_width="@dimen/_96sdp"
+        android:layout_height="@dimen/_64sdp"
+        android:layout_margin="@dimen/_2sdp"
+        android:scaleType="fitXY"
+        android:src="@color/colorGraySemiDark"
+        app:riv_corner_radius="@dimen/_5sdp" />
+
+</androidx.cardview.widget.CardView>
