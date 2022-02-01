@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Healthcare</string>
+    <string name="app_name">Shifa</string>
 
     <!--  Billing key  -->
     <string name="google_map_api_key" translatable="false">AIzaSyAKK4DzjELVUwt_lOLgbIYEW2aPlJfLQN8</string>
