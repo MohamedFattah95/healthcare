@@ -93,7 +93,7 @@
     <string name="empty_mobile">رقم الجوال فارغ</string>
     <string name="invalid_mobile">رقم الجوال غير صحيح</string>
     <string name="empty_password">كلمة المرور فارغة</string>
-    <string name="invalid_password">كلمة المرور يجب أن تتكون من 6 إلى 12 حرف</string>
+    <string name="invalid_password">كلمة المرور يجب أن تتكون من 8 إلى 12 حرف</string>
     <string name="accept_terms_to_continue">الرجاء الموافقة على الشروط والأحكام للاستمرار</string>
     <string name="empty_code">رمز التفعيل فارغ</string>
     <string name="after">بعد</string>
@@ -334,4 +334,8 @@
     <string name="categories">التخصصات</string>
     <string name="more">المزيد</string>
     <string name="doctors">الأطباء</string>
+    <string name="gender">النوع</string>
+    <string name="male">ذكر</string>
+    <string name="female">أنثى</string>
+    <string name="image_required">الصورة مطلوبة</string>
 </resources>

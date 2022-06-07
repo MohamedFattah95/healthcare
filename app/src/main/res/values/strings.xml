@@ -102,7 +102,7 @@
     <string name="empty_mobile">Mobile can\'t be empty</string>
     <string name="invalid_mobile">Invalid mobile number</string>
     <string name="empty_password">Password can\'t be empty</string>
-    <string name="invalid_password">Password length must be 6 to 12 digits</string>
+    <string name="invalid_password">Password length must be 8 to 12 digits</string>
     <string name="accept_terms_to_continue">Please accept terms and conditions to continue</string>
     <string name="empty_code">Code can\'t be empty</string>
     <string name="after">After</string>
@@ -343,4 +343,8 @@
     <string name="categories">Categories</string>
     <string name="more">More</string>
     <string name="doctors">Doctors</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="image_required">Image required</string>
 </resources>

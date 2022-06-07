@@ -121,7 +121,7 @@
                 android:layout_height="@dimen/_200sdp"
                 android:layout_marginHorizontal="@dimen/_16sdp">
 
-                <com.gp.health.utils.ScrollingMapView
+                <com.gp.shifa.utils.ScrollingMapView
                     android:id="@+id/mMapView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />

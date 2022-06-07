@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.gp.health">
+    package="com.gp.shifa">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -22,7 +22,7 @@
         android:required="true" />
 
     <application
-        android:name="com.gp.health.BaseApp"
+        android:name="com.gp.shifa.BaseApp"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
@@ -34,9 +34,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
-        <activity android:name="com.gp.health.ui.scanner.ScannerActivity" />
+        <activity android:name="com.gp.shifa.ui.scanner.ScannerActivity" />
         <activity
-            android:name="com.gp.health.ui.splash.SplashActivity"
+            android:name="com.gp.shifa.ui.splash.SplashActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -61,20 +61,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.gp.health.ui.user.login.LoginActivity"
+            android:name="com.gp.shifa.ui.user.login.LoginActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.adding_ad.ad_location.AdLocationActivity"
+            android:name="com.gp.shifa.ui.adding_ad.ad_location.AdLocationActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.gp.health.ui.main.MainActivity"
+            android:name="com.gp.shifa.ui.main.MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.intro.IntroActivity"
+            android:name="com.gp.shifa.ui.intro.IntroActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
@@ -87,114 +87,114 @@
             android:value="@string/google_map_api_key" />
 
         <activity
-            android:name="com.gp.health.ui.user.complete_profile.CompleteProfileActivity"
+            android:name="com.gp.shifa.ui.user.complete_profile.CompleteProfileActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.user.register.RegisterActivity"
+            android:name="com.gp.shifa.ui.user.register.RegisterActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.user.verify_account.VerifyAccountActivity"
+            android:name="com.gp.shifa.ui.user.verify_account.VerifyAccountActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.privacy_policy.PrivacyPolicyActivity"
+            android:name="com.gp.shifa.ui.privacy_policy.PrivacyPolicyActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.user.forgot_password.ForgotPasswordActivity"
+            android:name="com.gp.shifa.ui.user.forgot_password.ForgotPasswordActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.user.reset_password.ResetPasswordActivity"
+            android:name="com.gp.shifa.ui.user.reset_password.ResetPasswordActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.error_handler.ErrorHandlerActivity"
+            android:name="com.gp.shifa.ui.error_handler.ErrorHandlerActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.user.verify_code.VerifyCodeActivity"
+            android:name="com.gp.shifa.ui.user.verify_code.VerifyCodeActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.select_language.SelectLanguageActivity"
+            android:name="com.gp.shifa.ui.select_language.SelectLanguageActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.chat.ChatActivity"
+            android:name="com.gp.shifa.ui.chat.ChatActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.edit_profile.EditProfileActivity"
+            android:name="com.gp.shifa.ui.edit_profile.EditProfileActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.member_profile.MemberProfileActivity"
+            android:name="com.gp.shifa.ui.member_profile.MemberProfileActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.adding_ad.add_ad_terms.AddAdTermsActivity"
+            android:name="com.gp.shifa.ui.adding_ad.add_ad_terms.AddAdTermsActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.adding_ad.select_ad_category.SelectAdCategoryActivity"
+            android:name="com.gp.shifa.ui.adding_ad.select_ad_category.SelectAdCategoryActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.adding_ad.ad_fees_info.AdFeesInfoActivity"
+            android:name="com.gp.shifa.ui.adding_ad.ad_fees_info.AdFeesInfoActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.adding_ad.add_ad_images.AddAdImagesActivity"
+            android:name="com.gp.shifa.ui.adding_ad.add_ad_images.AddAdImagesActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.terms.TermsActivity"
+            android:name="com.gp.shifa.ui.terms.TermsActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.property_details.PropertyDetailsActivity"
+            android:name="com.gp.shifa.ui.property_details.PropertyDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.search.SearchActivity"
+            android:name="com.gp.shifa.ui.search.SearchActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.adding_ad.add_ad_details.AddAdDetailsActivity"
+            android:name="com.gp.shifa.ui.adding_ad.add_ad_details.AddAdDetailsActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.adding_ad.add_ad_info_desc.AddAdInfoDescActivity"
+            android:name="com.gp.shifa.ui.adding_ad.add_ad_info_desc.AddAdInfoDescActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.adding_order.AddingOrderActivity"
+            android:name="com.gp.shifa.ui.adding_order.AddingOrderActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.about.AboutActivity"
+            android:name="com.gp.shifa.ui.about.AboutActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.faqs.FAQsActivity"
+            android:name="com.gp.shifa.ui.faqs.FAQsActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.contact_us.ContactUsActivity"
+            android:name="com.gp.shifa.ui.contact_us.ContactUsActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.mobile_search.MobileSearchActivity"
+            android:name="com.gp.shifa.ui.mobile_search.MobileSearchActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.profile.MyProfileActivity"
+            android:name="com.gp.shifa.ui.profile.MyProfileActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.health.ui.packages.PackagesActivity"
+            android:name="com.gp.shifa.ui.packages.PackagesActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
@@ -210,12 +210,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/ThemeFullscreen" />
         <activity
-            android:name="com.gp.health.ui.media.MediaActivity"
+            android:name="com.gp.shifa.ui.media.MediaActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTop" />
 
         <service
-            android:name="com.gp.health.utils.notification_service.NotificationService"
+            android:name="com.gp.shifa.utils.notification_service.NotificationService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

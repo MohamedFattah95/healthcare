@@ -1,15 +1,16 @@
 {
   "project_info": {
     "project_number": "59052908244",
+    "firebase_url": "https://health-82599-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "health-82599",
     "storage_bucket": "health-82599.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:59052908244:android:34f398b5ba03da36082541",
+        "mobilesdk_app_id": "1:59052908244:android:74ddfff1bf0ec8b1082541",
         "android_client_info": {
-          "package_name": "com.gp.health"
+          "package_name": "com.gp.shifa"
         }
       },
       "oauth_client": [

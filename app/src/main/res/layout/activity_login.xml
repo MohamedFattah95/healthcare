@@ -5,39 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/rl_top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
-
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/_8sdp"
-            android:src="@drawable/ic_arrow_back"
-            android:tint="@color/black"
-            tools:ignore="ContentDescription,UseAppTint" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_skip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="@dimen/_8sdp"
-            android:background="@drawable/round_border_button_bg"
-            android:paddingHorizontal="@dimen/_16sdp"
-            android:paddingVertical="@dimen/_4sdp"
-            android:text="@string/skip"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_10ssp"
-            android:textStyle="bold"
-            tools:ignore="RelativeOverlap" />
-    </RelativeLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -82,16 +49,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_16sdp"
-            android:hint="@string/mobile_number_hint">
+            android:layout_marginTop="@dimen/_8sdp"
+            android:hint="@string/email">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_mobile"
+                android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                android:inputType="phone"
+                android:inputType="textEmailAddress"
                 android:lines="1"
-                android:maxLength="10"
+                android:maxLength="50"
                 android:maxLines="1"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp" />

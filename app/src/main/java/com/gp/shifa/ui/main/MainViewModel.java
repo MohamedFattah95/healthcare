@@ -1,0 +1,56 @@
+
+package com.gp.shifa.ui.main;
+
+import androidx.lifecycle.MutableLiveData;
+
+import com.gp.shifa.data.DataManager;
+import com.gp.shifa.data.models.DataWrapperModel;
+import com.gp.shifa.ui.base.BaseViewModel;
+import com.gp.shifa.utils.rx.SchedulerProvider;
+
+
+public class MainViewModel extends BaseViewModel<MainNavigator> {
+
+    private MutableLiveData<DataWrapperModel<Void>> logoutLiveData;
+
+    public MainViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
+        super(dataManager, schedulerProvider);
+        logoutLiveData = new MutableLiveData<>();
+    }
+
+    public MutableLiveData<DataWrapperModel<Void>> getLogoutLiveData() {
+        return logoutLiveData;
+    }
+
+
+    public void getAppSettings() {
+        getCompositeDisposable().add(getDataManager()
+                .getSettings()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(response -> {
+
+                    if (response.getStatus().equals("1"))
+                        getDataManager().setSettingsObject(response.getData());
+
+                }, throwable -> {
+                    getNavigator().handleError(throwable);
+                }));
+    }
+
+    public void doLogout() {
+        getCompositeDisposable().add(getDataManager()
+                .doLogout(getDataManager().getCurrentUserId())
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(response -> {
+                    if (response.getStatus().equals("1")) {
+                        logoutLiveData.setValue(response);
+                    } else
+                        getNavigator().showMyApiMessage(response.getMessage());
+                }, throwable -> {
+                    getNavigator().handleError(throwable);
+                }));
+    }
+
+}
