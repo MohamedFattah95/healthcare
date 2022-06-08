@@ -13,9 +13,9 @@ import com.gp.shifa.ui.base.BaseActivity;
 import com.gp.shifa.ui.intro.IntroActivity;
 import com.gp.shifa.ui.main.MainActivity;
 import com.gp.shifa.ui.member_profile.MemberProfileActivity;
-import com.gp.shifa.ui.profile.MyProfileActivity;
 import com.gp.shifa.ui.property_details.PropertyDetailsActivity;
 import com.gp.shifa.ui.select_language.SelectLanguageActivity;
+import com.gp.shifa.ui.user.profile.MyProfileActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;

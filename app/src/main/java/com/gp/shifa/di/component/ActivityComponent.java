@@ -14,19 +14,16 @@ import com.gp.shifa.ui.member_profile.MemberProfileActivity;
 import com.gp.shifa.ui.mobile_search.MobileSearchActivity;
 import com.gp.shifa.ui.packages.PackagesActivity;
 import com.gp.shifa.ui.privacy_policy.PrivacyPolicyActivity;
-import com.gp.shifa.ui.profile.MyProfileActivity;
 import com.gp.shifa.ui.property_details.PropertyDetailsActivity;
 import com.gp.shifa.ui.search.SearchActivity;
 import com.gp.shifa.ui.select_language.SelectLanguageActivity;
 import com.gp.shifa.ui.splash.SplashActivity;
 import com.gp.shifa.ui.terms.TermsActivity;
-import com.gp.shifa.ui.user.complete_profile.CompleteProfileActivity;
-import com.gp.shifa.ui.user.forgot_password.ForgotPasswordActivity;
+import com.gp.shifa.ui.user.change_password.ChangePasswordActivity;
 import com.gp.shifa.ui.user.login.LoginActivity;
+import com.gp.shifa.ui.user.profile.MyProfileActivity;
 import com.gp.shifa.ui.user.register.RegisterActivity;
 import com.gp.shifa.ui.user.reset_password.ResetPasswordActivity;
-import com.gp.shifa.ui.user.verify_account.VerifyAccountActivity;
-import com.gp.shifa.ui.user.verify_code.VerifyCodeActivity;
 
 import dagger.Component;
 
@@ -43,17 +40,9 @@ public interface ActivityComponent {
 
     void inject(RegisterActivity activity);
 
-    void inject(VerifyAccountActivity activity);
-
-    void inject(CompleteProfileActivity activity);
-
-    void inject(ForgotPasswordActivity activity);
-
     void inject(ResetPasswordActivity activity);
 
     void inject(ErrorHandlerActivity activity);
-
-    void inject(VerifyCodeActivity activity);
 
     void inject(TermsActivity activity);
 
@@ -82,4 +71,6 @@ public interface ActivityComponent {
     void inject(MyProfileActivity activity);
 
     void inject(PackagesActivity activity);
+
+    void inject(ChangePasswordActivity activity);
 }

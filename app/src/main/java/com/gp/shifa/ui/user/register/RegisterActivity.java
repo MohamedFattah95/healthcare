@@ -140,7 +140,7 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel> implements
 
         mViewModel.getRegistrationLiveData().observe(this, response -> {
             hideLoading();
-            showMyApiMessage(response.getMessage());
+            showSuccessMessage(response.getMessage());
             finish();
         });
     }

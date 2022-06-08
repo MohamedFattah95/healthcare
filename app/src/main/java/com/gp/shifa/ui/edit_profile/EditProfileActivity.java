@@ -5,6 +5,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.Nullable;
 
@@ -23,6 +26,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -35,7 +40,12 @@ public class EditProfileActivity extends BaseActivity<EditProfileViewModel> impl
     UserModel userModel = null;
 
     File profileImg = null;
-    String selectedMemberType = null;
+
+
+    int countryId;
+    int areaId;
+    String date = "1986-6-6";
+    String gender = "male";
 
     ActivityEditProfileBinding binding;
 
@@ -61,22 +71,112 @@ public class EditProfileActivity extends BaseActivity<EditProfileViewModel> impl
 
         showLoading();
         mViewModel.getProfile();
+
     }
 
 
     private void subscribeViewModel() {
 
+        mViewModel.getCountriesAndAreasLiveData().observe(this, response -> {
+
+            hideLoading();
+
+            countryId = userModel.getUser().getGovernorateId();
+            areaId = userModel.getUser().getAreaId();
+
+            final int[] selectedCountryPosition = {0};
+
+            List<String> countries = new ArrayList<>();
+            List<String> areas = new ArrayList<>();
+
+            for (int i = 0; i < response.getData().size(); i++) {
+                countries.add(response.getData().get(i).getName());
+            }
+
+            ArrayAdapter<String> adapter =
+                    new ArrayAdapter<>(
+                            this,
+                            R.layout.spinner_item,
+                            countries);
+
+            binding.spGovs.setAdapter(adapter);
+
+            ArrayAdapter<String> areasAdapter =
+                    new ArrayAdapter<>(
+                            this,
+                            R.layout.spinner_item,
+                            areas);
+
+            binding.spAreas.setAdapter(areasAdapter);
+
+            binding.spGovs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+                    areas.clear();
+                    selectedCountryPosition[0] = position;
+                    countryId = response.getData().get(position).getId();
+                    areaId = response.getData().get(position).getAreas().get(0).getId();
+
+                    for (int i = 0; i < response.getData().get(position).getAreas().size(); i++) {
+                        areas.add(response.getData().get(position).getAreas().get(i).getName());
+
+                        if (i == response.getData().get(position).getAreas().size() - 1) {
+                            areasAdapter.notifyDataSetChanged();
+
+                            for (int k = 0; k < response.getData().get(position).getAreas().size(); k++) {
+                                if (response.getData().get(position).getAreas().get(k).getId()
+                                        == userModel.getUser().getAreaId()) {
+                                    binding.spAreas.setSelection(k, true);
+                                    break;
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parentView) {
+                }
+
+            });
+
+            binding.spAreas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+                    areaId = response.getData().get(selectedCountryPosition[0]).getAreas().get(position).getId();
+
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parentView) {
+                }
+
+            });
+
+            for (int i = 0; i < response.getData().size(); i++) {
+                if (response.getData().get(i).getId() == userModel.getUser().getGovernorateId()) {
+                    binding.spGovs.setSelection(i, true);
+                    break;
+                }
+            }
+
+        });
 
         mViewModel.getProfileLiveData().observe(this, response -> {
 
-            mViewModel.getMemberTypes();
+            mViewModel.getCountriesAndAreas();
 
-            userModel = response.getData();
+            userModel = response;
 
             if (profileImg == null) {
                 Glide.with(this)
-                        .load(mViewModel.getDataManager().getUserObject().getUser().getImgSrc()
-                                + "/" + mViewModel.getDataManager().getUserObject().getUser().getImg())
+                        .load(userModel.getUser().getImgSrc()
+                                + "/" + userModel.getUser().getImg())
                         .placeholder(R.drawable.ic_user_holder)
                         .error(R.drawable.ic_user_holder)
                         .into(binding.civProfilePic);
@@ -84,22 +184,27 @@ public class EditProfileActivity extends BaseActivity<EditProfileViewModel> impl
                 binding.ivEditProfilePic.setImageResource(R.drawable.ic_camera);
             }
 
-            if (response.getData().getUser().getName() != null)
-                binding.etFullName.setText(response.getData().getUser().getName());
+            if (userModel.getUser().getName() != null)
+                binding.etFullName.setText(userModel.getUser().getName());
 
-            if (response.getData().getUser().getEmail() != null)
-                binding.etEmail.setText(response.getData().getUser().getEmail());
+            if (userModel.getUser().getEmail() != null)
+                binding.etEmail.setText(userModel.getUser().getEmail());
 
-            if (response.getData().getUser().getPhone() != null)
-                binding.etMobile.setText(response.getData().getUser().getPhone());
+            if (userModel.getUser().getPhone() != null)
+                binding.etMobile.setText(userModel.getUser().getPhone());
 
             binding.ivEditProfilePic.setImageResource(R.drawable.ic_camera);
             binding.etMobile.setEnabled(false);
-            binding.etQuote.setText(userModel.getUser().getGander());
 
-            binding.etOldPassword.setText("");
-            binding.etNewPassword.setText("");
-            binding.etConfirmNewPassword.setText("");
+            if (userModel.getUser().getGander().equalsIgnoreCase("male")) {
+                gender = "male";
+                binding.rbMale.setChecked(true);
+                binding.rbFemale.setChecked(false);
+            } else {
+                gender = "female";
+                binding.rbMale.setChecked(false);
+                binding.rbFemale.setChecked(true);
+            }
 
         });
 
@@ -110,7 +215,6 @@ public class EditProfileActivity extends BaseActivity<EditProfileViewModel> impl
             finish();
         });
 
-        mViewModel.getCheckOldPasswordLiveData().observe(this, response -> validateProfile());
     }
 
     @Override
@@ -179,18 +283,10 @@ public class EditProfileActivity extends BaseActivity<EditProfileViewModel> impl
             showKeyboard();
         });
 
-        binding.btnSave.setOnClickListener(v -> {
+        binding.rbFemale.setOnClickListener(v -> gender = "female");
+        binding.rbMale.setOnClickListener(v -> gender = "male");
 
-            if (!binding.etOldPassword.getText().toString().trim().isEmpty() && binding.etOldPassword.getText().toString().trim().length() >= 6
-                    && binding.etOldPassword.getText().toString().trim().length() <= 12) {
-                showLoading();
-                mViewModel.checkOldPassword(binding.etOldPassword.getText().toString().trim());
-                return;
-            }
-
-            validateProfile();
-
-        });
+        binding.btnSave.setOnClickListener(v -> validateProfile());
 
     }
 
@@ -203,7 +299,7 @@ public class EditProfileActivity extends BaseActivity<EditProfileViewModel> impl
         }
         binding.etFullName.setError(null);
 
-        if (!binding.etEmail.getText().toString().trim().isEmpty() && !CommonUtils.isEmailValid(binding.etEmail.getText().toString().trim())) {
+        if (binding.etEmail.getText().toString().trim().isEmpty() || !CommonUtils.isEmailValid(binding.etEmail.getText().toString().trim())) {
             binding.etEmail.setError(getText(R.string.invalid_email));
             binding.etEmail.requestFocus();
             return;
@@ -222,42 +318,7 @@ public class EditProfileActivity extends BaseActivity<EditProfileViewModel> impl
             binding.etMobile.requestFocus();
             return;
         }
-
-        if (!binding.etMobile.getText().toString().trim().startsWith("05")) {
-            binding.etMobile.setError(getText(R.string.invalid_mobile_prefix));
-            binding.etMobile.setEnabled(true);
-            binding.etMobile.requestFocus();
-            return;
-        }
         binding.etMobile.setError(null);
-
-        if (selectedMemberType == null) {
-            showMessage(R.string.choose_membership_type);
-            return;
-        }
-
-        if (binding.etQuote.getText().toString().trim().isEmpty()) {
-            binding.etQuote.setError(getText(R.string.empty_personal_quote));
-            binding.etQuote.requestFocus();
-            return;
-        }
-        binding.etQuote.setError(null);
-
-        if (!binding.etNewPassword.getText().toString().trim().isEmpty() && binding.etNewPassword.getText().toString().trim().length() < 6) {
-            binding.etNewPassword.setError(getText(R.string.invalid_password));
-            binding.etNewPassword.requestFocus();
-            return;
-        }
-
-        if (!binding.etNewPassword.getText().toString().trim().equals(binding.etConfirmNewPassword.getText().toString().trim())) {
-            binding.etNewPassword.setError(getText(R.string.passwords_not_matched));
-            binding.etConfirmNewPassword.setError(getText(R.string.passwords_not_matched));
-            binding.etConfirmNewPassword.requestFocus();
-            return;
-        }
-
-        binding.etNewPassword.setError(null);
-        binding.etConfirmNewPassword.setError(null);
 
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
@@ -271,22 +332,17 @@ public class EditProfileActivity extends BaseActivity<EditProfileViewModel> impl
                 requestBody = RequestBody.create(MediaType.parse("image/*"), profileImg);
             }
 
-            builder.addFormDataPart("image", profileImg.getName(), requestBody);
+            builder.addFormDataPart("img", profileImg.getName(), requestBody);
 
         }
 
-        builder.addFormDataPart("mobile", binding.etMobile.getText().toString().trim());
+        builder.addFormDataPart("phone", binding.etMobile.getText().toString().trim());
         builder.addFormDataPart("name", binding.etFullName.getText().toString().trim());
-        builder.addFormDataPart("_method", "PUT");
-        builder.addFormDataPart("description", binding.etQuote.getText().toString().trim());
-        builder.addFormDataPart("user_type_id", selectedMemberType);
-
-        if (!binding.etEmail.getText().toString().trim().isEmpty())
-            builder.addFormDataPart("email", binding.etEmail.getText().toString().trim());
-
-        if (!binding.etNewPassword.getText().toString().trim().isEmpty())
-            builder.addFormDataPart("password", binding.etNewPassword.getText().toString().trim());
-
+        builder.addFormDataPart("email", binding.etEmail.getText().toString().trim());
+        builder.addFormDataPart("date", date);
+        builder.addFormDataPart("gander", gender);
+        builder.addFormDataPart("governorate_id", String.valueOf(countryId));
+        builder.addFormDataPart("area_id", String.valueOf(areaId));
 
         showLoading();
         mViewModel.updateProfile(builder);

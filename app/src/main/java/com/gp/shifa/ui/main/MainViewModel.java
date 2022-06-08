@@ -40,14 +40,16 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public void doLogout() {
         getCompositeDisposable().add(getDataManager()
-                .doLogout(getDataManager().getCurrentUserId())
+                .doLogout()
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
                     if (response.getStatus().equals("1")) {
                         logoutLiveData.setValue(response);
-                    } else
-                        getNavigator().showMyApiMessage(response.getMessage());
+                    } else {
+                        getDataManager().setUserAsLoggedOut();
+                        getNavigator().openLoginActivity();
+                    }
                 }, throwable -> {
                     getNavigator().handleError(throwable);
                 }));

@@ -27,21 +27,18 @@ import com.gp.shifa.ui.notifications.NotificationsViewModel;
 import com.gp.shifa.ui.packages.PackagesAdapter;
 import com.gp.shifa.ui.packages.PackagesViewModel;
 import com.gp.shifa.ui.privacy_policy.PrivacyPolicyViewModel;
-import com.gp.shifa.ui.profile.ProfilePagerAdapter;
-import com.gp.shifa.ui.profile.ProfileViewModel;
 import com.gp.shifa.ui.property_details.PropertyDetailsViewModel;
 import com.gp.shifa.ui.property_details.PropertySpecsAdapter;
 import com.gp.shifa.ui.search.SearchViewModel;
 import com.gp.shifa.ui.select_language.SelectLanguageViewModel;
 import com.gp.shifa.ui.splash.SplashViewModel;
 import com.gp.shifa.ui.terms.TermsViewModel;
-import com.gp.shifa.ui.user.complete_profile.CompleteProfileViewModel;
-import com.gp.shifa.ui.user.forgot_password.ForgotPasswordViewModel;
+import com.gp.shifa.ui.user.change_password.ChangePasswordViewModel;
 import com.gp.shifa.ui.user.login.LoginViewModel;
+import com.gp.shifa.ui.user.profile.ProfilePagerAdapter;
+import com.gp.shifa.ui.user.profile.ProfileViewModel;
 import com.gp.shifa.ui.user.register.RegisterViewModel;
 import com.gp.shifa.ui.user.reset_password.ResetPasswordViewModel;
-import com.gp.shifa.ui.user.verify_account.VerifyAccountViewModel;
-import com.gp.shifa.ui.user.verify_code.VerifyCodeViewModel;
 import com.gp.shifa.utils.rx.SchedulerProvider;
 
 import java.util.ArrayList;
@@ -157,17 +154,10 @@ public class ActivityModule {
     }
 
     @Provides
-    VerifyAccountViewModel provideVerifyAccountViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        Supplier<VerifyAccountViewModel> supplier = () -> new VerifyAccountViewModel(dataManager, schedulerProvider);
-        ViewModelProviderFactory<VerifyAccountViewModel> factory = new ViewModelProviderFactory<>(VerifyAccountViewModel.class, supplier);
-        return new ViewModelProvider(activity, factory).get(VerifyAccountViewModel.class);
-    }
-
-    @Provides
-    CompleteProfileViewModel provideCompleteProfileViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        Supplier<CompleteProfileViewModel> supplier = () -> new CompleteProfileViewModel(dataManager, schedulerProvider);
-        ViewModelProviderFactory<CompleteProfileViewModel> factory = new ViewModelProviderFactory<>(CompleteProfileViewModel.class, supplier);
-        return new ViewModelProvider(activity, factory).get(CompleteProfileViewModel.class);
+    ChangePasswordViewModel provideChangePasswordViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
+        Supplier<ChangePasswordViewModel> supplier = () -> new ChangePasswordViewModel(dataManager, schedulerProvider);
+        ViewModelProviderFactory<ChangePasswordViewModel> factory = new ViewModelProviderFactory<>(ChangePasswordViewModel.class, supplier);
+        return new ViewModelProvider(activity, factory).get(ChangePasswordViewModel.class);
     }
 
     @Provides
@@ -199,13 +189,6 @@ public class ActivityModule {
     }
 
     @Provides
-    ForgotPasswordViewModel provideForgotPasswordViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        Supplier<ForgotPasswordViewModel> supplier = () -> new ForgotPasswordViewModel(dataManager, schedulerProvider);
-        ViewModelProviderFactory<ForgotPasswordViewModel> factory = new ViewModelProviderFactory<>(ForgotPasswordViewModel.class, supplier);
-        return new ViewModelProvider(activity, factory).get(ForgotPasswordViewModel.class);
-    }
-
-    @Provides
     ResetPasswordViewModel provideResetPasswordViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         Supplier<ResetPasswordViewModel> supplier = () -> new ResetPasswordViewModel(dataManager, schedulerProvider);
         ViewModelProviderFactory<ResetPasswordViewModel> factory = new ViewModelProviderFactory<>(ResetPasswordViewModel.class, supplier);
@@ -217,13 +200,6 @@ public class ActivityModule {
         Supplier<ErrorHandlerViewModel> supplier = () -> new ErrorHandlerViewModel(dataManager, schedulerProvider);
         ViewModelProviderFactory<ErrorHandlerViewModel> factory = new ViewModelProviderFactory<>(ErrorHandlerViewModel.class, supplier);
         return new ViewModelProvider(activity, factory).get(ErrorHandlerViewModel.class);
-    }
-
-    @Provides
-    VerifyCodeViewModel provideVerifyCodeViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        Supplier<VerifyCodeViewModel> supplier = () -> new VerifyCodeViewModel(dataManager, schedulerProvider);
-        ViewModelProviderFactory<VerifyCodeViewModel> factory = new ViewModelProviderFactory<>(VerifyCodeViewModel.class, supplier);
-        return new ViewModelProvider(activity, factory).get(VerifyCodeViewModel.class);
     }
 
     @Provides

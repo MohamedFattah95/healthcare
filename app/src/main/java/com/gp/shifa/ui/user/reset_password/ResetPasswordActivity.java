@@ -9,6 +9,7 @@ import com.gp.shifa.databinding.ActivityResetPasswordBinding;
 import com.gp.shifa.di.component.ActivityComponent;
 import com.gp.shifa.ui.base.BaseActivity;
 import com.gp.shifa.ui.user.login.LoginActivity;
+import com.gp.shifa.utils.CommonUtils;
 import com.gp.shifa.utils.ErrorHandlingUtils;
 
 public class ResetPasswordActivity extends BaseActivity<ResetPasswordViewModel> implements ResetPasswordNavigator {
@@ -40,6 +41,7 @@ public class ResetPasswordActivity extends BaseActivity<ResetPasswordViewModel> 
     private void subscribeViewModel() {
         mViewModel.getResetPasswordLiveData().observe(this, response -> {
             hideLoading();
+            showSuccessMessage(response.getMessage());
             startActivity(getIntentWithClearHistory(LoginActivity.class));
         });
     }
@@ -67,30 +69,29 @@ public class ResetPasswordActivity extends BaseActivity<ResetPasswordViewModel> 
 
         binding.saveButton.setOnClickListener(v -> {
 
+            if (binding.etEmail.getText().toString().trim().isEmpty()
+                    || !CommonUtils.isEmailValid(binding.etEmail.getText().toString().trim())) {
+                binding.etEmail.setError(getText(R.string.invalid_email));
+                binding.etEmail.requestFocus();
+                return;
+            }
+            binding.etEmail.setError(null);
+
             if (binding.etNewPassword.getText().toString().trim().isEmpty()) {
                 binding.etNewPassword.setError(getText(R.string.empty_password));
                 binding.etNewPassword.requestFocus();
                 return;
             }
 
-            if (binding.etNewPassword.getText().toString().trim().length() < 6) {
+            if (binding.etNewPassword.getText().toString().trim().length() < 8) {
                 binding.etNewPassword.setError(getText(R.string.invalid_password));
                 binding.etNewPassword.requestFocus();
                 return;
             }
-
-            if (!binding.etNewPassword.getText().toString().trim().equals(binding.etConfirmNewPassword.getText().toString().trim())) {
-                binding.etNewPassword.setError(getText(R.string.passwords_not_matched));
-                binding.etConfirmNewPassword.setError(getText(R.string.passwords_not_matched));
-                binding.etNewPassword.requestFocus();
-                return;
-            }
             binding.etNewPassword.setError(null);
-            binding.etConfirmNewPassword.setError(null);
 
             showLoading();
-            mViewModel.resetPassword(getIntent().getStringExtra("code"),
-                    getIntent().getStringExtra("phone"),
+            mViewModel.resetPassword(binding.etEmail.getText().toString().trim(),
                     binding.etNewPassword.getText().toString().trim());
 
         });

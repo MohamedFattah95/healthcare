@@ -76,9 +76,8 @@ public interface NetworkService {
     @GET("users/{user_id}/profile")
     Single<DataWrapperModel<UserModel>> getProfileApiCall(@Path("user_id") int userId);
 
-    @POST("users/{user_id}")
-    Single<DataWrapperModel<UserModel>> updateProfileApiCall(@Body MultipartBody body,
-                                                             @Path("user_id") int userId);
+    @POST("api/v1/update-profile")
+    Single<DataWrapperModel<UserModel.UserBean>> updateProfileApiCall(@Body MultipartBody body);
 
 
     @POST("users/{user_id}/fcm")
@@ -96,10 +95,9 @@ public interface NetworkService {
     Single<DataWrapperModel<UserModel>> sendForgotPasswordCodeApiCall(@Field("mobile") String mobileNumber);
 
     @FormUrlEncoded
-    @POST("change_password")
-    Single<DataWrapperModel<Void>> resetPasswordApiCall(@Field("code") String code,
-                                                        @Field("mobile") String phone,
-                                                        @Field("password") String password);
+    @POST("api/v1/reset-password")
+    Single<DataWrapperModel<UserModel>> resetPasswordApiCall(@Field("email") String email,
+                                                             @Field("newPassword") String password);
 
     @GET("users/{user_id}/notifications")
     Single<PagDataWrapperModel<List<NotificationsModel>>> getNotificationsApiCall(@Path("user_id") int userId,
@@ -130,9 +128,8 @@ public interface NetworkService {
     @GET("slider/{id}")
     Single<DataWrapperModel<SliderModel>> getSlider(@Path("id") int id);
 
-    @FormUrlEncoded
-    @POST("logout")
-    Single<DataWrapperModel<Void>> doLogout(@Field("user_id") int userId);
+    @POST("api/v1/logout")
+    Single<DataWrapperModel<Void>> doLogout();
 
     @FormUrlEncoded
     @POST("notifications/{user_id}/user_readed_all")

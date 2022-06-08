@@ -25,6 +25,7 @@ import com.gp.shifa.ui.intro.IntroActivity;
 import com.gp.shifa.ui.main.MainActivity;
 import com.gp.shifa.ui.privacy_policy.PrivacyPolicyActivity;
 import com.gp.shifa.ui.terms.TermsActivity;
+import com.gp.shifa.ui.user.change_password.ChangePasswordActivity;
 import com.gp.shifa.utils.AppUtils;
 import com.gp.shifa.utils.LanguageHelper;
 
@@ -67,19 +68,13 @@ public class SettingsFragment extends BaseFragment<SettingsViewModel> implements
                 (LanguageHelper.getLanguage(getActivity()).equalsIgnoreCase("ar") ?
                         getString(R.string.arabic) : getString(R.string.english)) + "]");
 
-        binding.swNotificationSounds.setChecked(mViewModel.getDataManager().getNotificationsSound() == 1);
-
         setUpOnViewClicked();
 
     }
 
     private void setUpOnViewClicked() {
 
-        binding.swNotificationSounds.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (buttonView.isPressed()) {
-                mViewModel.getDataManager().setNotificationsSound(isChecked ? 1 : 0);
-            }
-        });
+        binding.tvChangePassword.setOnClickListener(v -> startActivity(ChangePasswordActivity.newIntent(getActivity())));
 
         binding.tvPrivacyPolicy.setOnClickListener(v -> startActivity(PrivacyPolicyActivity.newIntent(getActivity())));
 

@@ -16,67 +16,47 @@ import java.util.List;
 import okhttp3.MultipartBody;
 
 public class EditProfileViewModel extends BaseViewModel<EditProfileNavigator> {
-    private MutableLiveData<DataWrapperModel<UserModel>> profileLiveData;
-    private MutableLiveData<DataWrapperModel<UserModel>> updateProfileLiveData;
-    private MutableLiveData<DataWrapperModel<Void>> checkOldPasswordLiveData;
-    private MutableLiveData<DataWrapperModel<List<CountriesAndAreasModel>>> memberTypesLiveData;
+    private MutableLiveData<UserModel> profileLiveData;
+    private MutableLiveData<DataWrapperModel<UserModel.UserBean>> updateProfileLiveData;
+    private MutableLiveData<DataWrapperModel<List<CountriesAndAreasModel>>> countriesAndAreasLiveData;
+
 
     public EditProfileViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
         profileLiveData = new MutableLiveData<>();
         updateProfileLiveData = new MutableLiveData<>();
-        checkOldPasswordLiveData = new MutableLiveData<>();
-        memberTypesLiveData = new MutableLiveData<>();
+        countriesAndAreasLiveData = new MutableLiveData<>();
     }
 
-    public MutableLiveData<DataWrapperModel<UserModel>> getProfileLiveData() {
+    public MutableLiveData<UserModel> getProfileLiveData() {
         return profileLiveData;
     }
 
-    public LiveData<DataWrapperModel<UserModel>> getUpdateProfileLiveData() {
+    public LiveData<DataWrapperModel<UserModel.UserBean>> getUpdateProfileLiveData() {
         return updateProfileLiveData;
     }
 
-    public MutableLiveData<DataWrapperModel<Void>> getCheckOldPasswordLiveData() {
-        return checkOldPasswordLiveData;
-    }
-
-    public MutableLiveData<DataWrapperModel<List<CountriesAndAreasModel>>> getMemberTypesLiveData() {
-        return memberTypesLiveData;
+    public MutableLiveData<DataWrapperModel<List<CountriesAndAreasModel>>> getCountriesAndAreasLiveData() {
+        return countriesAndAreasLiveData;
     }
 
     public void getProfile() {
-        getCompositeDisposable().add(getDataManager()
-                .getProfileApiCall(getDataManager().getCurrentUserId())
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(response -> {
-
-                    if (response.getStatus().equals("1")) {
-                        UserModel userModel = response.getData();
-                        userModel.setAccessToken(getDataManager().getAccessToken());
-                        getDataManager().setUserObject(userModel);
-                        profileLiveData.setValue(response);
-                    } else {
-                        getNavigator().showMyApiMessage(response.getMessage());
-                    }
-
-                }, throwable -> {
-                    getNavigator().handleError(throwable);
-                }));
+        profileLiveData.setValue(getDataManager().getUserObject());
     }
 
     public void updateProfile(MultipartBody.Builder builder) {
 
         getCompositeDisposable().add(getDataManager()
-                .updateProfileApiCall(builder.build(), getDataManager().getCurrentUserId())
+                .updateProfileApiCall(builder.build())
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
 
                     if (response.getStatus().equals("1")) {
-                        UserModel userModel = response.getData();
+                        UserModel userModel = new UserModel();
+                        UserModel.UserBean userModelBean = response.getData();
                         userModel.setAccessToken(getDataManager().getAccessToken());
+                        userModel.setUser(userModelBean);
                         getDataManager().setUserObject(userModel);
                         updateProfileLiveData.setValue(response);
                     } else {
@@ -89,23 +69,7 @@ public class EditProfileViewModel extends BaseViewModel<EditProfileNavigator> {
 
     }
 
-    public void checkOldPassword(String oldPassword) {
-        getCompositeDisposable().add(getDataManager()
-                .checkOldPasswordApiCall(getDataManager().getCurrentUserId(), oldPassword)
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(response -> {
-
-                    if (response.getStatus().equals("1")) {
-                        checkOldPasswordLiveData.setValue(response);
-                    } else {
-                        getNavigator().showMyApiMessage(response.getMessage());
-                    }
-
-                }, throwable -> getNavigator().handleError(throwable)));
-    }
-
-    public void getMemberTypes() {
+    public void getCountriesAndAreas() {
         getCompositeDisposable().add(getDataManager()
                 .getCountriesAndAreasApiCall()
                 .subscribeOn(getSchedulerProvider().io())
@@ -113,7 +77,7 @@ public class EditProfileViewModel extends BaseViewModel<EditProfileNavigator> {
                 .subscribe(response -> {
 
                     if (response.getStatus().equals("1")) {
-                        memberTypesLiveData.setValue(response);
+                        countriesAndAreasLiveData.setValue(response);
                     } else {
                         getNavigator().showMyApiMessage(response.getMessage());
                     }

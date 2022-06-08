@@ -232,8 +232,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<DataWrapperModel<UserModel>> updateProfileApiCall(MultipartBody body, int userId) {
-        return mApiHelper.updateProfileApiCall(body, userId);
+    public Single<DataWrapperModel<UserModel.UserBean>> updateProfileApiCall(MultipartBody body) {
+        return mApiHelper.updateProfileApiCall(body);
     }
 
     @Override
@@ -257,8 +257,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<DataWrapperModel<Void>> resetPasswordApiCall(String code, String phone, String password) {
-        return mApiHelper.resetPasswordApiCall(code, phone, password);
+    public Single<DataWrapperModel<UserModel>> resetPasswordApiCall(String email, String password) {
+        return mApiHelper.resetPasswordApiCall(email, password);
     }
 
     @Override
@@ -297,8 +297,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<DataWrapperModel<Void>> doLogout(int userId) {
-        return mApiHelper.doLogout(userId);
+    public Single<DataWrapperModel<Void>> doLogout() {
+        return mApiHelper.doLogout();
     }
 
     @Override

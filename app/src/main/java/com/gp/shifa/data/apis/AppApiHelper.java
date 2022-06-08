@@ -85,8 +85,8 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Single<DataWrapperModel<UserModel>> updateProfileApiCall(MultipartBody map, int userId) {
-        return networkService.updateProfileApiCall(map, userId);
+    public Single<DataWrapperModel<UserModel.UserBean>> updateProfileApiCall(MultipartBody map) {
+        return networkService.updateProfileApiCall(map);
     }
 
     @Override
@@ -110,8 +110,8 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Single<DataWrapperModel<Void>> resetPasswordApiCall(String code, String phone, String password) {
-        return networkService.resetPasswordApiCall(code, phone, password);
+    public Single<DataWrapperModel<UserModel>> resetPasswordApiCall(String email, String password) {
+        return networkService.resetPasswordApiCall(email, password);
     }
 
     @Override
@@ -150,8 +150,8 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Single<DataWrapperModel<Void>> doLogout(int userId) {
-        return networkService.doLogout(userId);
+    public Single<DataWrapperModel<Void>> doLogout() {
+        return networkService.doLogout();
     }
 
     @Override

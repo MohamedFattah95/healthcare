@@ -14,7 +14,7 @@ import com.gp.shifa.databinding.FragmentMemberRatingsBinding;
 import com.gp.shifa.di.component.FragmentComponent;
 import com.gp.shifa.ui.base.BaseFragment;
 import com.gp.shifa.ui.member_profile.MemberProfileActivity;
-import com.gp.shifa.ui.profile.my_ratings.MyRatingsAdapter;
+import com.gp.shifa.ui.user.profile.my_ratings.MyRatingsAdapter;
 import com.gp.shifa.utils.ErrorHandlingUtils;
 
 import org.greenrobot.eventbus.EventBus;

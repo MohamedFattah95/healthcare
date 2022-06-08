@@ -347,4 +347,5 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="image_required">Image required</string>
+    <string name="change_password">Change password</string>
 </resources>

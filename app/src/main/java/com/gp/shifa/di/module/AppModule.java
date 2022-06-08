@@ -119,6 +119,7 @@ public class AppModule {
                     Log.i("token", "" + preferencesHelper.getAccessToken());
 
                     requestBuilder.addHeader("Authorization", "Bearer " + preferencesHelper.getAccessToken());
+                    requestBuilder.addHeader("auth_token", preferencesHelper.getAccessToken() + "");
                     requestBuilder.addHeader("Accept", "application/json");
                     requestBuilder.addHeader("Content-Type", "application/json");
                     requestBuilder.addHeader("api_password", "slaughterhouse_2021_m3m");

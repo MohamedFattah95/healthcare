@@ -338,4 +338,5 @@
     <string name="male">ذكر</string>
     <string name="female">أنثى</string>
     <string name="image_required">الصورة مطلوبة</string>
+    <string name="change_password">تغيير كلمة المرور</string>
 </resources>

@@ -128,7 +128,7 @@
                     android:enabled="false"
                     android:inputType="phone"
                     android:lines="1"
-                    android:maxLength="10"
+                    android:maxLength="12"
                     android:maxLines="1"
                     android:paddingHorizontal="@dimen/_36sdp"
                     android:textColor="@color/black"
@@ -140,134 +140,71 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/corner_border_rect_gray"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="@dimen/_12sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_14sdp"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/ic_member_type"
-                    android:tint="@color/colorPrimary"
-                    tools:ignore="ContentDescription,UseAppTint" />
-
                 <Spinner
-                    android:id="@+id/sp_member_type"
+                    android:id="@+id/sp_govs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center" />
 
             </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:hint="@string/personal_quote"
-                app:counterEnabled="true"
-                app:counterMaxLength="120">
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/corner_border_rect_gray"
+                android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etQuote"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_80sdp"
-                    android:gravity="top|start"
-                    android:inputType="textMultiLine"
-                    android:lines="3"
-                    android:maxLength="120"
-                    android:maxLines="3"
-                    android:minLines="1"
-                    android:scrollbars="vertical"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:hint="@string/old_password"
-                app:endIconMode="password_toggle"
-                app:endIconTint="@color/colorAccent"
-                app:startIconDrawable="@drawable/ic_lock"
-                app:startIconTint="@color/colorPrimary">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_old_password"
+                <Spinner
+                    android:id="@+id/sp_areas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:lines="1"
-                    android:maxLength="12"
-                    android:maxLines="1"
-                    android:paddingHorizontal="@dimen/_36sdp"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp" />
+                    android:layout_gravity="center" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:text="@string/gender"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold" />
+
+            <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:hint="@string/new_password"
-                app:endIconMode="password_toggle"
-                app:endIconTint="@color/colorAccent"
-                app:startIconDrawable="@drawable/ic_lock"
-                app:startIconTint="@color/colorPrimary">
+                android:layout_marginTop="@dimen/_2sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_new_password"
-                    android:layout_width="match_parent"
+                <RadioButton
+                    android:id="@+id/rbMale"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:lines="1"
-                    android:maxLength="12"
-                    android:maxLines="1"
-                    android:paddingHorizontal="@dimen/_36sdp"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="@string/male"
                     android:textSize="@dimen/_10ssp" />
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:hint="@string/confirm_new_password"
-                app:endIconMode="password_toggle"
-                app:endIconTint="@color/colorAccent"
-                app:startIconDrawable="@drawable/ic_lock"
-                app:startIconTint="@color/colorPrimary">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_confirm_new_password"
-                    android:layout_width="match_parent"
+                <RadioButton
+                    android:id="@+id/rbFemale"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:lines="1"
-                    android:maxLength="12"
-                    android:maxLines="1"
-                    android:paddingHorizontal="@dimen/_36sdp"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:text="@string/female"
                     android:textSize="@dimen/_10ssp" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+            </RadioGroup>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnSave"

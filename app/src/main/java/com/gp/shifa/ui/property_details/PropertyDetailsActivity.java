@@ -38,7 +38,7 @@ import com.gp.shifa.ui.chat.ChatActivity;
 import com.gp.shifa.ui.common.SliderAdapter;
 import com.gp.shifa.ui.member_profile.MemberProfileActivity;
 import com.gp.shifa.ui.member_profile.member_ads.MemberAdsAdapter;
-import com.gp.shifa.ui.profile.MyProfileActivity;
+import com.gp.shifa.ui.user.profile.MyProfileActivity;
 import com.gp.shifa.utils.CommonUtils;
 import com.gp.shifa.utils.DateUtility;
 import com.gp.shifa.utils.ErrorHandlingUtils;

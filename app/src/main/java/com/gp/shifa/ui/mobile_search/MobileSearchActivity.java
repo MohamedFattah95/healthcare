@@ -12,7 +12,7 @@ import com.gp.shifa.databinding.ActivityMobileSearchBinding;
 import com.gp.shifa.di.component.ActivityComponent;
 import com.gp.shifa.ui.base.BaseActivity;
 import com.gp.shifa.ui.member_profile.MemberProfileActivity;
-import com.gp.shifa.ui.profile.MyProfileActivity;
+import com.gp.shifa.ui.user.profile.MyProfileActivity;
 import com.gp.shifa.utils.ErrorHandlingUtils;
 
 import javax.inject.Inject;

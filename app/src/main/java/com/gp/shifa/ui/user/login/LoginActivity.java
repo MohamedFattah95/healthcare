@@ -14,8 +14,8 @@ import com.gp.shifa.databinding.ActivityLoginBinding;
 import com.gp.shifa.di.component.ActivityComponent;
 import com.gp.shifa.ui.base.BaseActivity;
 import com.gp.shifa.ui.main.MainActivity;
-import com.gp.shifa.ui.user.forgot_password.ForgotPasswordActivity;
 import com.gp.shifa.ui.user.register.RegisterActivity;
+import com.gp.shifa.ui.user.reset_password.ResetPasswordActivity;
 import com.gp.shifa.utils.CommonUtils;
 import com.gp.shifa.utils.ErrorHandlingUtils;
 
@@ -78,7 +78,7 @@ public class LoginActivity extends BaseActivity<LoginViewModel> implements Login
         });
 
         binding.btnCreateNewAccount.setOnClickListener(v -> startActivity(RegisterActivity.newIntent(LoginActivity.this)));
-        binding.tvRestorePassword.setOnClickListener(v -> startActivity(ForgotPasswordActivity.newIntent(LoginActivity.this)));
+        binding.tvRestorePassword.setOnClickListener(v -> startActivity(ResetPasswordActivity.newIntent(LoginActivity.this)));
 
     }
 

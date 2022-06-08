@@ -12,13 +12,13 @@ import com.gp.shifa.ui.home.HomeFragment;
 import com.gp.shifa.ui.member_profile.member_ads.MemberAdsFragment;
 import com.gp.shifa.ui.member_profile.member_ratings.MemberRatingsFragment;
 import com.gp.shifa.ui.notifications.NotificationsFragment;
-import com.gp.shifa.ui.profile.ProfileFragment;
-import com.gp.shifa.ui.profile.blocked.BlockedFragment;
-import com.gp.shifa.ui.profile.follows.FollowsFragment;
-import com.gp.shifa.ui.profile.my_ads.MyAdsFragment;
-import com.gp.shifa.ui.profile.my_orders.MyOrdersFragment;
-import com.gp.shifa.ui.profile.my_ratings.MyRatingsFragment;
 import com.gp.shifa.ui.settings.SettingsFragment;
+import com.gp.shifa.ui.user.profile.ProfileFragment;
+import com.gp.shifa.ui.user.profile.blocked.BlockedFragment;
+import com.gp.shifa.ui.user.profile.follows.FollowsFragment;
+import com.gp.shifa.ui.user.profile.my_ads.MyAdsFragment;
+import com.gp.shifa.ui.user.profile.my_orders.MyOrdersFragment;
+import com.gp.shifa.ui.user.profile.my_ratings.MyRatingsFragment;
 
 import dagger.Component;
 

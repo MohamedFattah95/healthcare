@@ -52,7 +52,7 @@ public interface ApiHelper {
 
     Single<DataWrapperModel<UserModel>> getProfileApiCall(int userId);
 
-    Single<DataWrapperModel<UserModel>> updateProfileApiCall(MultipartBody body, int userId);
+    Single<DataWrapperModel<UserModel.UserBean>> updateProfileApiCall(MultipartBody body);
 
     Single<DataWrapperModel<Void>> updateFCMTokenApiCall(int userId, HashMap<String, String> map);
 
@@ -62,7 +62,7 @@ public interface ApiHelper {
 
     Single<DataWrapperModel<UserModel>> sendForgotPasswordCodeApiCall(String mobileNumber);
 
-    Single<DataWrapperModel<Void>> resetPasswordApiCall(String code, String phone, String password);
+    Single<DataWrapperModel<UserModel>> resetPasswordApiCall(String email, String password);
 
     Single<PagDataWrapperModel<List<NotificationsModel>>> getNotificationsApiCall(int userId, int page);
 
@@ -78,7 +78,7 @@ public interface ApiHelper {
 
     Single<DataWrapperModel<SliderModel>> getSlider(int id);
 
-    Single<DataWrapperModel<Void>> doLogout(int userId);
+    Single<DataWrapperModel<Void>> doLogout();
 
     Single<DataWrapperModel<Void>> markAllAsReadApiCall(int userId, String method);
 

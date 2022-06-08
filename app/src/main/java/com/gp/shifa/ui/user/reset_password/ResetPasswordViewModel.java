@@ -6,24 +6,25 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.gp.shifa.data.DataManager;
 import com.gp.shifa.data.models.DataWrapperModel;
+import com.gp.shifa.data.models.UserModel;
 import com.gp.shifa.ui.base.BaseViewModel;
 import com.gp.shifa.utils.rx.SchedulerProvider;
 
 public class ResetPasswordViewModel extends BaseViewModel<ResetPasswordNavigator> {
-    private MutableLiveData<DataWrapperModel<Void>> resetPasswordLiveData;
+    private MutableLiveData<DataWrapperModel<UserModel>> resetPasswordLiveData;
 
     public ResetPasswordViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
         resetPasswordLiveData = new MutableLiveData<>();
     }
 
-    public LiveData<DataWrapperModel<Void>> getResetPasswordLiveData() {
+    public LiveData<DataWrapperModel<UserModel>> getResetPasswordLiveData() {
         return resetPasswordLiveData;
     }
 
-    public void resetPassword(String code, String phone, String password) {
+    public void resetPassword(String email, String password) {
         getCompositeDisposable().add(getDataManager()
-                .resetPasswordApiCall(code, phone, password)
+                .resetPasswordApiCall(email, password)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
