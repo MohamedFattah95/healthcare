@@ -33,7 +33,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
-        <activity android:name="com.gp.shifa.ui.scanner.ScannerActivity" />
         <activity
             android:name="com.gp.shifa.ui.splash.SplashActivity"
             android:launchMode="singleTop"
@@ -87,10 +86,6 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.shifa.ui.privacy_policy.PrivacyPolicyActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.gp.shifa.ui.user.reset_password.ResetPasswordActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
@@ -111,38 +106,10 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.shifa.ui.member_profile.MemberProfileActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.gp.shifa.ui.terms.TermsActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.gp.shifa.ui.doctor_details.DoctorDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.gp.shifa.ui.category_doctors.CategoryDoctorsActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.gp.shifa.ui.about.AboutActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.gp.shifa.ui.faqs.FAQsActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.gp.shifa.ui.contact_us.ContactUsActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.gp.shifa.ui.mobile_search.MobileSearchActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.gp.shifa.ui.packages.PackagesActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
