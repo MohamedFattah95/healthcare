@@ -37,8 +37,8 @@
                 android:layout_height="@dimen/_48sdp"
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/_8sdp"
-                android:src="@drawable/ic_user_holder"
-                app:civ_border_color="@color/colorPrimary"
+                android:src="@drawable/ic_doctor"
+                app:civ_border_color="@color/colorAccent"
                 app:civ_border_width="@dimen/_1sdp" />
 
             <LinearLayout

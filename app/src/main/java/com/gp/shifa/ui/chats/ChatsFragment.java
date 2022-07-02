@@ -9,14 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.gp.shifa.data.models.ChatRoomModel;
 import com.gp.shifa.data.models.ChatsModel;
-import com.gp.shifa.data.models.MessageModel;
 import com.gp.shifa.databinding.FragmentChatsBinding;
 import com.gp.shifa.di.component.FragmentComponent;
 import com.gp.shifa.ui.base.BaseFragment;
@@ -52,7 +48,8 @@ public class ChatsFragment extends BaseFragment<ChatsViewModel> implements Chats
     public void refreshData() {
 
         if (mViewModel != null && mViewModel.getDataManager().isUserLogged()) {
-            showLoading();
+            binding.swipeRefreshView.setRefreshing(true);
+            chatsAdapter.clearItems();
             mViewModel.getUserChats();
         }
 
@@ -122,37 +119,37 @@ public class ChatsFragment extends BaseFragment<ChatsViewModel> implements Chats
 
                 chatsAdapter.addItem(chatRoomModel);
 
-                rootRef.child("Chat").child(chatRoomModel.getRoomId()).orderByKey().limitToLast(1).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        try {
-                            if (dataSnapshot.exists()) {
-
-                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    MessageModel message = snapshot.getValue(MessageModel.class);
-
-                                    chatRoomModel.setMessage(message.getMessage());
-                                    chatRoomModel.setMessageDate(message.getTime());
-                                    boolean isSeen = message.isSeen();
-                                    chatRoomModel.setIsSeen(isSeen);
-                                    chatRoomModel.setLastMsgByYou(message.getSenderId() == currentUserId);
-
-                                    chatsAdapter.addItem(chatRoomModel);
-
-                                    originalRoomsList.add(chatRoomModel); //for search only
-                                }
-
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+//                rootRef.child("Chat").child(chatRoomModel.getRoomId()).orderByKey().limitToLast(1).addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        try {
+//                            if (dataSnapshot.exists()) {
+//
+//                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                                    MessageModel message = snapshot.getValue(MessageModel.class);
+//
+//                                    chatRoomModel.setMessage(message.getMessage());
+//                                    chatRoomModel.setMessageDate(message.getTime());
+//                                    boolean isSeen = message.isSeen();
+//                                    chatRoomModel.setIsSeen(isSeen);
+//                                    chatRoomModel.setLastMsgByYou(message.getSenderId() == currentUserId);
+//
+//                                    chatsAdapter.addItem(chatRoomModel);
+//
+//                                    originalRoomsList.add(chatRoomModel); //for search only
+//                                }
+//
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
 
             }
         });
