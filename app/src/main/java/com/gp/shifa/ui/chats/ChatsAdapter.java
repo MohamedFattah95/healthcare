@@ -1,8 +1,6 @@
 package com.gp.shifa.ui.chats;
 
 import android.annotation.SuppressLint;
-import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gp.shifa.R;
 import com.gp.shifa.data.models.ChatRoomModel;
 import com.gp.shifa.ui.base.BaseViewHolder;
-import com.gp.shifa.utils.DateUtility;
-import com.gp.shifa.utils.ImageUtils;
 
 import java.util.List;
 
@@ -83,17 +79,8 @@ public class ChatsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public void addItem(ChatRoomModel chatRoomModel) {
-        if (isInList(chatRoomModel)) {
-            for (ChatRoomModel model : mChatsList) {
-                if (model.getMessageDate().equals(chatRoomModel.getMessageDate())) {
-                    model.setMessage(chatRoomModel.getMessage());
-                    model.setIsSeen(chatRoomModel.isSeen());
-                }
-            }
-        } else {
-            mChatsList.add(chatRoomModel);
-        }
 
+        mChatsList.add(chatRoomModel);
         notifyDataSetChanged();
     }
 
@@ -160,41 +147,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @SuppressLint({"SetTextI18n", "LogNotTimber"})
         public void onBind(int position) {
             ChatRoomModel roomModel = mChatsList.get(position);
-            tvDate.setText(DateUtility.getDateTimeSpaceFormat(roomModel.getMessageDate(), itemView.getContext()));
-            tvUsername.setText(roomModel.getUsername());
-            ImageUtils.loadUserImage(roomModel.getUserImage(), civUser, itemView.getContext());
-
-
-            if (roomModel.isLastMsgByYou()) {
-
-                if (roomModel.getMessage().contains(".mp3")) {
-                    tvMessage.setText(itemView.getResources().getString(R.string.you) + ": " + itemView.getResources().getString(R.string.voice_record));
-                } else if (roomModel.getMessage().contains("http")) {
-                    tvMessage.setText(itemView.getResources().getString(R.string.you) + ": " + itemView.getResources().getString(R.string.picture));
-                } else {
-                    tvMessage.setText(itemView.getResources().getString(R.string.you) + ": " + roomModel.getMessage());
-                }
-
-            } else {
-
-                if (roomModel.getMessage().contains(".mp3")) {
-                    tvMessage.setText(itemView.getResources().getString(R.string.voice_record));
-                } else if (roomModel.getMessage().contains("http")) {
-                    tvMessage.setText(itemView.getResources().getString(R.string.picture));
-                } else {
-                    tvMessage.setText(roomModel.getMessage());
-                }
-            }
-
-            Log.e("TAG", "onBind: " + roomModel.isSeen());
-            if (roomModel.isSeen()) {
-                tvMessage.setTextColor(itemView.getContext().getResources().getColor(R.color.semi_gray));
-                tvMessage.setTypeface(tvMessage.getTypeface(), Typeface.NORMAL);
-            } else {
-                tvMessage.setTextColor(itemView.getContext().getResources().getColor(R.color.colorBlack));
-                tvMessage.setTypeface(tvMessage.getTypeface(), Typeface.BOLD);
-            }
-
+            tvUsername.setText(roomModel.getRoomId());
 
             itemView.setOnClickListener(v -> mCallback.openChat(roomModel));
         }

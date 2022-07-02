@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.gp.shifa.databinding.FragmentDoctorsBinding;
 import com.gp.shifa.di.component.FragmentComponent;
 import com.gp.shifa.ui.base.BaseFragment;
+import com.gp.shifa.ui.doctor_details.DoctorDetailsActivity;
 import com.gp.shifa.utils.ErrorHandlingUtils;
 
 import javax.inject.Inject;
 
-public class DoctorsFragment extends BaseFragment<DoctorsViewModel> implements DoctorsNavigator {
+public class DoctorsFragment extends BaseFragment<DoctorsViewModel> implements DoctorsNavigator, DoctorsAdapter.Callback {
 
     @Inject
     LinearLayoutManager linearLayoutManager;
@@ -34,9 +35,10 @@ public class DoctorsFragment extends BaseFragment<DoctorsViewModel> implements D
     }
 
     public void refreshData() {
-        if (mViewModel.getDataManager().isUserLogged()) {
+        if (mViewModel != null) {
             binding.swipe.setRefreshing(true);
-            mViewModel.getActiveAreas();
+            mViewModel.getDoctors(1);
+            doctorsAdapter.clearItems();
         }
     }
 
@@ -44,6 +46,7 @@ public class DoctorsFragment extends BaseFragment<DoctorsViewModel> implements D
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel.setNavigator(this);
+        doctorsAdapter.setCallback(this);
     }
 
     @Override
@@ -60,22 +63,22 @@ public class DoctorsFragment extends BaseFragment<DoctorsViewModel> implements D
         binding.rvDoctors.setAdapter(doctorsAdapter);
 
         binding.swipe.setOnRefreshListener(() -> {
-            if (mViewModel.getDataManager().isUserLogged()) {
-                showLoading();
-                binding.swipe.setRefreshing(true);
-                mViewModel.getActiveAreas();
-            } else {
-                binding.swipe.setRefreshing(false);
-            }
+            binding.swipe.setRefreshing(true);
+            mViewModel.getDoctors(1);
+            doctorsAdapter.clearItems();
         });
 
         subscribeViewModel();
+        mViewModel.getDoctors(1);
 
     }
 
     private void subscribeViewModel() {
 
-        mViewModel.getRootCitiesLiveData().observe(requireActivity(), response -> {
+        mViewModel.getDoctorsLiveData().observe(requireActivity(), response -> {
+            hideLoading();
+            binding.swipe.setRefreshing(false);
+            doctorsAdapter.addItems(response.getData());
 
         });
 
@@ -99,4 +102,9 @@ public class DoctorsFragment extends BaseFragment<DoctorsViewModel> implements D
         showErrorMessage(message);
     }
 
+    @Override
+    public void getDoctorDetails(int id) {
+        startActivity(DoctorDetailsActivity.newIntent(requireActivity()).putExtra("doctor_id", id));
+
+    }
 }

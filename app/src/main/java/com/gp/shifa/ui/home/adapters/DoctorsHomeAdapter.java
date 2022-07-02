@@ -4,29 +4,34 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.gp.shifa.R;
-import com.gp.shifa.data.models.AdAndOrderModel;
+import com.gp.shifa.data.models.DoctorModel;
 import com.gp.shifa.databinding.ItemEmptyViewBinding;
 import com.gp.shifa.ui.base.BaseViewHolder;
 
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DoctorsHomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public static final int VIEW_TYPE_EMPTY = 0;
-    public static final int VIEW_TYPE_MAP_AD = 1;
+    public static final int VIEW_TYPE_DOCTOR = 1;
 
     private Callback mCallback;
-    public List<AdAndOrderModel> mMapAdsList;
+    public List<DoctorModel> doctorModelList;
 
-    public DoctorsHomeAdapter(List<AdAndOrderModel> list) {
-        mMapAdsList = list;
+    public DoctorsHomeAdapter(List<DoctorModel> list) {
+        doctorModelList = list;
     }
 
     public void setCallback(Callback callback) {
@@ -43,8 +48,8 @@ public class DoctorsHomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         switch (viewType) {
-            case VIEW_TYPE_MAP_AD:
-                return new MapAdViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_doctor_home, parent, false));
+            case VIEW_TYPE_DOCTOR:
+                return new DoctorViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_doctor_home, parent, false));
             case VIEW_TYPE_EMPTY:
             default:
                 return new EmptyViewHolder(
@@ -54,59 +59,52 @@ public class DoctorsHomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-//        if (mMapAdsList != null && mMapAdsList.size() > 0) {
-            return VIEW_TYPE_MAP_AD;
-//        } else {
-//            return VIEW_TYPE_EMPTY;
-//        }
+        if (doctorModelList != null && doctorModelList.size() > 0) {
+            return VIEW_TYPE_DOCTOR;
+        } else {
+            return VIEW_TYPE_EMPTY;
+        }
     }
 
     @Override
     public int getItemCount() {
-//        if (mMapAdsList != null && mMapAdsList.size() > 0) {
-//            return mMapAdsList.size();
-//        } else {
-            return 10;
-//        }
+        if (doctorModelList != null && doctorModelList.size() > 0) {
+            return doctorModelList.size();
+        } else {
+            return 0;
+        }
     }
 
-    public void addItems(List<AdAndOrderModel> list) {
-        mMapAdsList.clear();
-        mMapAdsList.addAll(list);
+    public void addItems(List<DoctorModel> list) {
+        doctorModelList.clear();
+        doctorModelList.addAll(list);
         notifyDataSetChanged();
     }
 
     public void clearItems() {
-        mMapAdsList.clear();
+        doctorModelList.clear();
         notifyDataSetChanged();
     }
 
     public interface Callback {
 
-        void getPropertyDetails(int id);
-
-        void favoriteOrUnFavorite(int itemId, int position);
+        void onDoctorClick(int id);
     }
 
     @SuppressLint("NonConstantResourceId")
-    public class MapAdViewHolder extends BaseViewHolder {
+    public class DoctorViewHolder extends BaseViewHolder {
 
-//        @BindView(R.id.adCover)
-//        ImageView adCover;
-//        @BindView(R.id.favoriteImage)
-//        ImageView favoriteImage;
-//        @BindView(R.id.tvAdDate)
-//        TextView tvAdDate;
-//        @BindView(R.id.tvAdLocation)
-//        TextView tvAdLocation;
-//        @BindView(R.id.tvAdDesc)
-//        TextView tvAdDesc;
-//        @BindView(R.id.tvAdPrice)
-//        TextView tvAdPrice;
-//        @BindView(R.id.tvAdTitle)
-//        TextView tvAdTitle;
+        @BindView(R.id.userImageView)
+        ImageView userImageView;
+        ;
+        @BindView(R.id.tvUsername)
+        TextView tvUsername;
+        @BindView(R.id.tvRateCount)
+        TextView tvRateCount;
+        @BindView(R.id.ratingBar)
+        RatingBar ratingBar;
 
-        public MapAdViewHolder(View itemView) {
+        public DoctorViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -118,69 +116,20 @@ public class DoctorsHomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @SuppressLint("SetTextI18n")
         public void onBind(int position) {
 
-//            AdAndOrderModel model = mMapAdsList.get(position);
-//
-//            if (model.getImages() != null && !model.getImages().isEmpty()) {
-//                Glide.with(itemView).load(model.getImages().get(0).getFileName())
-//                        .error(R.drawable.img_back)
-//                        .placeholder(R.drawable.img_back)
-//                        .into(adCover);
-//            } else {
-//                Glide.with(itemView).load(R.drawable.img_back).into(adCover);
-//            }
-//
-//
-//            if (model.getUpdatedAt() != null)
-//                tvAdDate.setText(DateUtility.getDateOnlyTFormat(model.getUpdatedAt()));
-//            else
-//                tvAdDate.setText(itemView.getResources().getString(R.string.n_a));
-//
-//            if (model.getCountry() != null)
-//                tvAdLocation.setText(model.getCountry());
-//            else
-//                tvAdLocation.setText(itemView.getResources().getString(R.string.n_a));
-//
-//            if (model.getDescription() != null)
-//                tvAdDesc.setText(model.getDescription());
-//            else
-//                tvAdDesc.setText(itemView.getResources().getString(R.string.n_a));
-//
-//            if (model.getType() == 1) {
-//
-//                if (model.getTitle() != null)
-//                    tvAdTitle.setText(model.getTitle());
-//                else
-//                    tvAdTitle.setText(itemView.getResources().getString(R.string.n_a));
-//
-//                if (model.getPrice() != null && !model.getPrice().isEmpty())
-//                    tvAdPrice.setText(model.getPrice() + " " + itemView.getResources().getString(R.string.sr));
-//                else
-//                    tvAdPrice.setText(itemView.getResources().getString(R.string.n_a));
-//
-//            } else {
-//
-//                if (model.getCategories() != null && !model.getCategories().isEmpty())
-//                    tvAdTitle.setText("(" + itemView.getResources().getString(R.string.order) + ") " + model.getCategories().get(0).getTitle());
-//                else
-//                    tvAdTitle.setText("(" + itemView.getResources().getString(R.string.order) + ")");
-//
-//                if (model.getPriceMin() != null && model.getPriceMax() != null && !model.getPriceMin().isEmpty() && !model.getPriceMax().isEmpty())
-//                    tvAdPrice.setText(CommonUtils.setPriceCurrency(itemView.getContext(), Double.parseDouble(model.getPriceMin())) + " : " +
-//                            CommonUtils.setPriceCurrency(itemView.getContext(), Double.parseDouble(model.getPriceMax())));
-//                else
-//                    tvAdPrice.setText(itemView.getResources().getString(R.string.n_a));
-//
-//            }
-//
-//            if (model.getIsLikedByMe() != null) {
-//                favoriteImage.setImageResource(R.drawable.ic_favorite);
-//            } else {
-//                favoriteImage.setImageResource(R.drawable.ic_un_favorite);
-//            }
-//
-//            itemView.setOnClickListener(v -> mCallback.getPropertyDetails(model.getId()));
-//
-//            favoriteImage.setOnClickListener(v -> mCallback.favoriteOrUnFavorite(model.getId(), position));
+            DoctorModel model = doctorModelList.get(position);
+
+            Glide.with(itemView).load(model.getImgSrc() + "/" +
+                            model.getImg())
+                    .error(R.drawable.ic_doctor)
+                    .placeholder(R.drawable.ic_doctor)
+                    .into(userImageView);
+
+            tvUsername.setText(model.getTitle() + " " + model.getName());
+            ratingBar.setRating(model.getRating());
+            tvRateCount.setText(model.getRating() + "/5");
+
+            itemView.setOnClickListener(v -> mCallback.onDoctorClick(model.getId()));
+
 
         }
     }

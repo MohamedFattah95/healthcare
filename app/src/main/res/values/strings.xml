@@ -348,4 +348,11 @@
     <string name="female">Female</string>
     <string name="image_required">Image required</string>
     <string name="change_password">Change password</string>
+    <string name="clinics">Clinics</string>
+    <string name="egp">EGP</string>
+    <string name="desc">Description</string>
+    <string name="det_price">Detection price</string>
+    <string name="det_time">Detection time</string>
+    <string name="minutes">minutes</string>
+    <string name="speciality">Specialty</string>
 </resources>

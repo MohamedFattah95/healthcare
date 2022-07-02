@@ -6,6 +6,4 @@ public interface FavoritesNavigator {
     void showMyApiMessage(String message);
 
     void handleError(Throwable throwable);
-
-    void unFavoriteDone(int position);
 }

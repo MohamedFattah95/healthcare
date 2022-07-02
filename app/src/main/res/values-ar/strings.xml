@@ -339,4 +339,11 @@
     <string name="female">أنثى</string>
     <string name="image_required">الصورة مطلوبة</string>
     <string name="change_password">تغيير كلمة المرور</string>
+    <string name="clinics">العيادات</string>
+    <string name="egp">جنيه</string>
+    <string name="desc">وصف</string>
+    <string name="det_price">سعر الكشف</string>
+    <string name="det_time">وقت الكشف</string>
+    <string name="minutes">دقيقة</string>
+    <string name="speciality">التخصص</string>
 </resources>

@@ -4,40 +4,45 @@ package com.gp.shifa.ui.doctors;
 import androidx.lifecycle.MutableLiveData;
 
 import com.gp.shifa.data.DataManager;
-import com.gp.shifa.data.models.CityModel;
 import com.gp.shifa.data.models.DataWrapperModel;
+import com.gp.shifa.data.models.DoctorModel;
 import com.gp.shifa.ui.base.BaseViewModel;
 import com.gp.shifa.utils.rx.SchedulerProvider;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class DoctorsViewModel extends BaseViewModel<DoctorsNavigator> {
 
-    private MutableLiveData<DataWrapperModel<List<CityModel>>> rootCitiesLiveData;
+    private MutableLiveData<DataWrapperModel<List<DoctorModel>>> doctorsLiveData;
 
     public DoctorsViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
-        rootCitiesLiveData = new MutableLiveData<>();
+        doctorsLiveData = new MutableLiveData<>();
     }
 
-    public MutableLiveData<DataWrapperModel<List<CityModel>>> getRootCitiesLiveData() {
-        return rootCitiesLiveData;
+    public MutableLiveData<DataWrapperModel<List<DoctorModel>>> getDoctorsLiveData() {
+        return doctorsLiveData;
     }
 
-    public void getActiveAreas() {
+    public void getDoctors(int page) {
+        AtomicInteger i = new AtomicInteger(page);
         getCompositeDisposable().add(getDataManager()
-                .getRootCitiesApiCall()
+                .getDoctorsApiCall(page)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
 
-                    if (response.getStatus().equals("1"))
-                        rootCitiesLiveData.setValue(response);
-                    else
-                        getNavigator().showMyApiMessage(response.getMessage());
+                    if (response.getStatus().equals("1")) {
+                        doctorsLiveData.setValue(response);
+                        if (!response.getData().isEmpty()) {
+                            getDoctors(i.incrementAndGet());
+                        }
+                    } else
+                        getDoctors(i.incrementAndGet());
 
                 }, throwable -> {
-                    getNavigator().handleError(throwable);
+                    getDoctors(i.incrementAndGet());
                 }));
     }
 }

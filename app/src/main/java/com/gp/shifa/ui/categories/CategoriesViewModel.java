@@ -4,7 +4,7 @@ package com.gp.shifa.ui.categories;
 import androidx.lifecycle.MutableLiveData;
 
 import com.gp.shifa.data.DataManager;
-import com.gp.shifa.data.models.CityModel;
+import com.gp.shifa.data.models.CategoriesModel;
 import com.gp.shifa.data.models.DataWrapperModel;
 import com.gp.shifa.ui.base.BaseViewModel;
 import com.gp.shifa.utils.rx.SchedulerProvider;
@@ -13,31 +13,31 @@ import java.util.List;
 
 public class CategoriesViewModel extends BaseViewModel<CategoriesNavigator> {
 
-    private MutableLiveData<DataWrapperModel<List<CityModel>>> rootCitiesLiveData;
+    private MutableLiveData<DataWrapperModel<List<CategoriesModel>>> categoriesLiveData;
 
     public CategoriesViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
-        rootCitiesLiveData = new MutableLiveData<>();
+        categoriesLiveData = new MutableLiveData<>();
     }
 
-    public MutableLiveData<DataWrapperModel<List<CityModel>>> getRootCitiesLiveData() {
-        return rootCitiesLiveData;
+    public MutableLiveData<DataWrapperModel<List<CategoriesModel>>> getCategoriesLiveData() {
+        return categoriesLiveData;
     }
 
-    public void getActiveAreas() {
+    public void getCategories() {
         getCompositeDisposable().add(getDataManager()
-                .getRootCitiesApiCall()
+                .getCategoriesApiCall()
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
 
                     if (response.getStatus().equals("1"))
-                        rootCitiesLiveData.setValue(response);
+                        categoriesLiveData.setValue(response);
                     else
-                        getNavigator().showMyApiMessage(response.getMessage());
+                        getCategories();
 
                 }, throwable -> {
-                    getNavigator().handleError(throwable);
+                    getCategories();
                 }));
     }
 }

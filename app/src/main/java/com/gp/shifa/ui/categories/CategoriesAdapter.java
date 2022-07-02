@@ -4,17 +4,22 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.gp.shifa.BuildConfig;
 import com.gp.shifa.R;
-import com.gp.shifa.data.models.NotificationsModel;
+import com.gp.shifa.data.models.CategoriesModel;
 import com.gp.shifa.databinding.ItemEmptyViewBinding;
 import com.gp.shifa.ui.base.BaseViewHolder;
 
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
@@ -23,9 +28,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public static final int VIEW_TYPE_CATS = 1;
 
     private Callback mCallback;
-    private List<NotificationsModel> mCategoriesList;
+    private List<CategoriesModel> mCategoriesList;
 
-    public CategoriesAdapter(List<NotificationsModel> list) {
+    public CategoriesAdapter(List<CategoriesModel> list) {
         mCategoriesList = list;
     }
 
@@ -55,37 +60,43 @@ public class CategoriesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-//        if (mCategoriesList != null && mCategoriesList.size() > 0) {
+        if (mCategoriesList != null && mCategoriesList.size() > 0) {
             return VIEW_TYPE_CATS;
-//        } else {
-//            return VIEW_TYPE_EMPTY;
-//        }
+        } else {
+            return VIEW_TYPE_EMPTY;
+        }
     }
 
     @Override
     public int getItemCount() {
-//        if (mCategoriesList != null && mCategoriesList.size() > 0) {
-//            return mCategoriesList.size();
-//        } else {
-            return 19;
-//        }
+        if (mCategoriesList != null && mCategoriesList.size() > 0) {
+            return mCategoriesList.size();
+        } else {
+            return 1;
+        }
     }
 
-    public void addItems(List<NotificationsModel> list) {
+    public void addItems(List<CategoriesModel> list) {
+        clearItems();
         mCategoriesList.addAll(list);
         notifyDataSetChanged();
     }
 
     public void clearItems() {
         mCategoriesList.clear();
-        notifyDataSetChanged();
     }
 
     public interface Callback {
+        void onCategorySelected(CategoriesModel category);
     }
 
     @SuppressLint("NonConstantResourceId")
     public class CategoriesViewHolder extends BaseViewHolder {
+
+        @BindView(R.id.tv_category)
+        TextView tvCategory;
+        @BindView(R.id.iv_category)
+        ImageView ivCategory;
 
         public CategoriesViewHolder(View itemView) {
             super(itemView);
@@ -98,6 +109,19 @@ public class CategoriesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @SuppressLint("SetTextI18n")
         public void onBind(int position) {
+
+            CategoriesModel category = mCategoriesList.get(position);
+
+            tvCategory.setText(category.getName());
+
+            Glide.with(itemView)
+                    .load(BuildConfig.BASE_URL +
+                            "assets/web/img/category/" + category.getImg())
+                    .error(R.drawable.ic_category)
+                    .placeholder(R.drawable.ic_category)
+                    .into(ivCategory);
+
+            itemView.setOnClickListener(v -> mCallback.onCategorySelected(category));
 
         }
     }

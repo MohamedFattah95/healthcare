@@ -1,39 +1,37 @@
 
-
-package com.gp.shifa.ui.favorites;
+package com.gp.shifa.ui.category_doctors;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.gp.shifa.data.DataManager;
+import com.gp.shifa.data.models.CategoryDoctorsModel;
 import com.gp.shifa.data.models.DataWrapperModel;
-import com.gp.shifa.data.models.DoctorModel;
 import com.gp.shifa.ui.base.BaseViewModel;
 import com.gp.shifa.utils.rx.SchedulerProvider;
 
-import java.util.List;
+public class CategoryDoctorsViewModel extends BaseViewModel<CategoryDoctorsNavigator> {
 
-public class FavoritesViewModel extends BaseViewModel<FavoritesNavigator> {
+    private MutableLiveData<DataWrapperModel<CategoryDoctorsModel>> categoryDoctorsLiveData;
 
-    private MutableLiveData<DataWrapperModel<List<DoctorModel>>> favoritesLiveData;
-
-    public FavoritesViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
+    public CategoryDoctorsViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
-        favoritesLiveData = new MutableLiveData<>();
+        categoryDoctorsLiveData = new MutableLiveData<>();
     }
 
-    public MutableLiveData<DataWrapperModel<List<DoctorModel>>> getFavoritesLiveData() {
-        return favoritesLiveData;
+    public MutableLiveData<DataWrapperModel<CategoryDoctorsModel>> getCategoryDoctorsLiveData() {
+        return categoryDoctorsLiveData;
     }
 
-    public void getFavorites() {
+
+    public void getCategoryDoctors(int categoryId) {
         getCompositeDisposable().add(getDataManager()
-                .getFavoritesApiCall()
+                .getCategoryDoctorsApiCall(categoryId)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
 
                     if (response.getStatus().equals("1"))
-                        favoritesLiveData.setValue(response);
+                        categoryDoctorsLiveData.setValue(response);
                     else
                         getNavigator().showMyApiMessage(response.getMessage());
 

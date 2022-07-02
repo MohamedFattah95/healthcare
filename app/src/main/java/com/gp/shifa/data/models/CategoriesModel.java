@@ -6,27 +6,12 @@ import java.io.Serializable;
 
 public class CategoriesModel implements Serializable {
 
-    boolean isSelected = false;
-    @SerializedName("title")
-    private String title;
-    /**
-     * id : 1
-     * title : عروض الأسبوع
-     * parent : 0
-     */
-
     @SerializedName("id")
     private int id;
-    @SerializedName("parent")
-    private int parent;
-
-    public boolean isSelected() {
-        return isSelected;
-    }
-
-    public void setSelected(boolean selected) {
-        isSelected = selected;
-    }
+    @SerializedName("name")
+    private String name;
+    @SerializedName("img")
+    private String img;
 
     public int getId() {
         return id;
@@ -36,21 +21,19 @@ public class CategoriesModel implements Serializable {
         this.id = id;
     }
 
-    public int getParent() {
-        return parent;
+    public String getName() {
+        return name;
     }
 
-    public void setParent(int parent) {
-        this.parent = parent;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTitle() {
-        return title;
+    public String getImg() {
+        return img;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setImg(String img) {
+        this.img = img;
     }
-
-
 }

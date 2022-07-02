@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.gp.shifa.BaseApp;
 import com.gp.shifa.data.DataManager;
-import com.gp.shifa.data.models.SettingsModel;
 import com.gp.shifa.data.models.UserModel;
 import com.gp.shifa.di.PreferenceInfo;
 import com.gp.shifa.utils.AppConstants;
@@ -53,19 +52,6 @@ public class AppPreferencesHelper implements PreferencesHelper {
         return mPrefs.getString(PREF_KEY_ACCESS_TOKEN, null) != null;
     }
 
-
-    @Override
-    public SettingsModel getSettingsObject() {
-        String objStr = mPrefs.getString(SETTINGS_OBJECT, "");
-        if (!objStr.matches("")) {
-            return new Gson().fromJson(objStr, SettingsModel.class);
-        } else return null;
-    }
-
-    @Override
-    public void setSettingsObject(SettingsModel settingsModel) {
-        mPrefs.edit().putString(SETTINGS_OBJECT, new Gson().toJson(settingsModel)).apply();
-    }
 
     @Override
     public UserModel getUserObject() {

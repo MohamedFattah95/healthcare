@@ -20,8 +20,8 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.gp.shifa.R;
 import com.gp.shifa.data.prefs.AppPreferencesHelper;
 import com.gp.shifa.ui.chat.ChatActivity;
+import com.gp.shifa.ui.doctor_details.DoctorDetailsActivity;
 import com.gp.shifa.ui.main.MainActivity;
-import com.gp.shifa.ui.property_details.PropertyDetailsActivity;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -89,7 +89,7 @@ public class NotificationService extends FirebaseMessagingService {
             intent = new Intent(this, ChatActivity.class)
                     .putExtra("receiver_id", senderId);
         } else if (type == 7) {
-            intent = new Intent(this, PropertyDetailsActivity.class)
+            intent = new Intent(this, DoctorDetailsActivity.class)
                     .putExtra("itemId", itemId);
         } else
             intent = new Intent(this, MainActivity.class);

@@ -114,16 +114,13 @@ public class ChatsFragment extends BaseFragment<ChatsViewModel> implements Chats
 
                 chatRoomModel.setRoomId(chat.getRoomId());
 
-                if (chat.getSenderUser().getId() == currentUserId) {
-                    chatRoomModel.setUserId(chat.getReceiverUser().getId());
-                    chatRoomModel.setUsername(chat.getReceiverUser().getName());
-                    chatRoomModel.setUserImage(chat.getReceiverUser().getImage());
+                if (chat.getUserId() == currentUserId) {
+                    chatRoomModel.setUserId(chat.getMedicalId());
                 } else {
-                    chatRoomModel.setUserId(chat.getSenderUser().getId());
-                    chatRoomModel.setUsername(chat.getSenderUser().getName());
-                    chatRoomModel.setUserImage(chat.getSenderUser().getImage());
+                    chatRoomModel.setUserId(chat.getUserId());
                 }
 
+                chatsAdapter.addItem(chatRoomModel);
 
                 rootRef.child("Chat").child(chatRoomModel.getRoomId()).orderByKey().limitToLast(1).addValueEventListener(new ValueEventListener() {
                     @Override

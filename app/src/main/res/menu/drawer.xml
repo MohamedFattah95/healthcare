@@ -8,24 +8,9 @@
             android:title="@string/home_menu" />
 
         <item
-            android:id="@+id/navDoctors"
-            android:icon="@drawable/ic_doctor"
-            android:title="@string/doctors" />
-
-        <item
             android:id="@+id/navFavs"
             android:icon="@drawable/ic_like2"
             android:title="@string/my_favorites" />
-
-        <item
-            android:id="@+id/navCommission"
-            android:icon="@drawable/ic_cash"
-            android:title="@string/commission" />
-
-        <item
-            android:id="@+id/navAddCommercial"
-            android:icon="@drawable/ic_contract"
-            android:title="@string/add_commercial" />
 
         <item
             android:id="@+id/navSettings"

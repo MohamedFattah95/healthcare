@@ -49,6 +49,9 @@ public class LoginActivity extends BaseActivity<LoginViewModel> implements Login
 
         subscribeViewModel();
 
+        binding.ivBack.setOnClickListener(v -> finish());
+        binding.tvSkip.setOnClickListener(v -> startActivity(getIntentWithClearHistory(MainActivity.class)));
+
         binding.btnLogin.setOnClickListener(v -> {
 
             if (binding.etEmail.getText().toString().trim().isEmpty()

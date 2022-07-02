@@ -9,31 +9,28 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.gp.shifa.databinding.FragmentFavoritesBinding;
 import com.gp.shifa.di.component.FragmentComponent;
 import com.gp.shifa.ui.base.BaseFragment;
-import com.gp.shifa.ui.property_details.PropertyDetailsActivity;
-import com.gp.shifa.utils.CommonUtils;
+import com.gp.shifa.ui.doctor_details.DoctorDetailsActivity;
+import com.gp.shifa.ui.doctors.DoctorsAdapter;
 import com.gp.shifa.utils.ErrorHandlingUtils;
 
 import javax.inject.Inject;
 
 @SuppressLint("NonConstantResourceId")
-public class FavoritesFragment extends BaseFragment<FavoritesViewModel> implements FavoritesNavigator, FavoritesAdapter.Callback {
+public class FavoritesFragment extends BaseFragment<FavoritesViewModel> implements FavoritesNavigator, DoctorsAdapter.Callback {
 
     public static final String TAG = "FavoritesFragment";
 
     @Inject
     LinearLayoutManager favoritesLayoutManager;
     @Inject
-    FavoritesAdapter favoritesAdapter;
+    DoctorsAdapter favoritesAdapter;
 
     FragmentFavoritesBinding binding;
 
-    private int page = 1;
-    private int lastPage;
 
     public static FavoritesFragment newInstance(int instance) {
         Bundle args = new Bundle();
@@ -67,36 +64,19 @@ public class FavoritesFragment extends BaseFragment<FavoritesViewModel> implemen
         setUpFavoritesAdapter();
         subscribeViewModel();
 
-        binding.rvFavorites.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (favoritesLayoutManager != null && favoritesLayoutManager.findLastCompletelyVisibleItemPosition() == favoritesAdapter.getItemCount() - 1) {
-                    if (page < lastPage) {
-                        showLoading();
-                        mViewModel.getFavorites(mViewModel.getDataManager().getCurrentUserId(), ++page);
-                    }
-                }
-
-            }
-        });
-
-
         binding.swipeFavorites.setOnRefreshListener(() -> {
 
             if (mViewModel.getDataManager().isUserLogged()) {
                 showLoading();
                 binding.swipeFavorites.setRefreshing(true);
-                page = 1;
-                mViewModel.getFavorites(mViewModel.getDataManager().getCurrentUserId(), page);
+                mViewModel.getFavorites();
             }
 
         });
 
         if (mViewModel.getDataManager().isUserLogged()) {
             binding.swipeFavorites.setRefreshing(true);
-            page = 1;
-            mViewModel.getFavorites(mViewModel.getDataManager().getCurrentUserId(), page);
+            mViewModel.getFavorites();
         }
     }
 
@@ -104,14 +84,9 @@ public class FavoritesFragment extends BaseFragment<FavoritesViewModel> implemen
 
         mViewModel.getFavoritesLiveData().observe(requireActivity(), response -> {
             hideLoading();
+            favoritesAdapter.clearItems();
             binding.swipeFavorites.setRefreshing(false);
-            if (page == 1) {
-                favoritesAdapter.clearItems();
-            }
-            int startIndex = favoritesAdapter.getItemCount();
             favoritesAdapter.addItems(response.getData());
-            favoritesAdapter.notifyItemRangeInserted(startIndex, response.getData().size());
-            lastPage = response.getPagination().getLastPage();
         });
 
     }
@@ -141,25 +116,12 @@ public class FavoritesFragment extends BaseFragment<FavoritesViewModel> implemen
 //        showErrorMessage(message);
     }
 
-    @Override
-    public void getPropertyDetails(int id) {
-        startActivity(PropertyDetailsActivity.newIntent(getActivity()).putExtra("itemId", id));
-    }
 
     @Override
-    public void unFavorite(int itemId, int position) {
-        if (mViewModel.getDataManager().isUserLogged()) {
-            showLoading();
-            mViewModel.unFavorite(itemId, position);
+    public void getDoctorDetails(int id) {
+        startActivity(DoctorDetailsActivity.newIntent(requireActivity())
+                .putExtra("fav", true)
+                .putExtra("doctor_id", id));
 
-        } else {
-            CommonUtils.handleNotAuthenticated(requireActivity());
-        }
-    }
-
-    @Override
-    public void unFavoriteDone(int position) {
-        hideLoading();
-        favoritesAdapter.removeItem(position);
     }
 }

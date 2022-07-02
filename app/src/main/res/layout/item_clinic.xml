@@ -11,18 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_8sdp"
-        android:orientation="horizontal">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/userImageView"
-            android:layout_width="@dimen/_64sdp"
-            android:layout_height="@dimen/_64sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:src="@drawable/ic_user_holder"
-            app:civ_border_color="@color/colorAccent"
-            app:civ_border_width="@dimen/_1sdp"
-            app:civ_circle_background_color="@color/colorWhite" />
+        android:orientation="horizontal"
+        android:padding="@dimen/_8sdp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,62 +22,34 @@
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvUsername"
+                android:id="@+id/tvSpec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="2"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:gravity="center|start"
+                android:text="@string/name"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_10ssp"
-                android:text="@string/name" />
+                android:textSize="@dimen/_10ssp" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvDesc"
+                android:id="@+id/tvPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4sdp"
-                android:ellipsize="end"
                 android:gravity="center|start"
-                android:maxLines="2"
                 android:textColor="@color/colorGrayDarker"
                 android:textSize="@dimen/_10ssp"
                 tools:text="@string/name" />
 
-            <LinearLayout
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:gravity="center|start"
-                android:orientation="horizontal">
-
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    style="@android:style/Widget.Holo.RatingBar.Small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:rating="0"
-                    android:stepSize="1" />
-
-                <TextView
-                    android:id="@+id/tvRateScore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/_4sdp"
-                    android:gravity="center"
-                    android:text="(0)"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_9ssp"
-                    tools:ignore="HardcodedText" />
-
-            </LinearLayout>
-
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_10ssp"
+                tools:text="@string/name" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvLocation"
@@ -96,9 +58,7 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:drawableStart="@drawable/ic_pin_10"
                 android:drawablePadding="@dimen/_8sdp"
-                android:ellipsize="end"
                 android:gravity="center|start"
-                android:maxLines="1"
                 android:textColor="@color/colorGrayDarker"
                 android:textSize="@dimen/_10ssp"
                 tools:text="@string/name" />

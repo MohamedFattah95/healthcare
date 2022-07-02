@@ -11,7 +11,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
 import com.gp.shifa.R;
-import com.gp.shifa.data.models.MediaModel;
+import com.gp.shifa.data.models.DoctorDetailsModel;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import java.util.ArrayList;
@@ -19,9 +19,9 @@ import java.util.List;
 
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapterVH> {
 
-    private final ArrayList<MediaModel> mImgsList;
+    private final ArrayList<DoctorDetailsModel.MedicalsBean.ImagesBean> mImgsList;
 
-    public SliderAdapter(ArrayList<MediaModel> mImgsList) {
+    public SliderAdapter(ArrayList<DoctorDetailsModel.MedicalsBean.ImagesBean> mImgsList) {
         this.mImgsList = mImgsList;
     }
 
@@ -37,13 +37,13 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
         viewHolder.onBind(position);
     }
 
-    public void addItems(List<MediaModel> list) {
+    public void addItems(List<DoctorDetailsModel.MedicalsBean.ImagesBean> list) {
         mImgsList.clear();
         mImgsList.addAll(list);
         notifyDataSetChanged();
     }
 
-    public void addItem(List<MediaModel> list) {
+    public void addItem(List<DoctorDetailsModel.MedicalsBean.ImagesBean> list) {
         mImgsList.addAll(list);
         notifyDataSetChanged();
     }
@@ -71,10 +71,10 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
         }
 
         public void onBind(int position) {
-            MediaModel model = mImgsList.get(position);
+            DoctorDetailsModel.MedicalsBean.ImagesBean model = mImgsList.get(position);
 
             Glide.with(itemView)
-                    .load(model.getFileName())
+                    .load(model.getSrc())
                     .error(R.drawable.img_back)
                     .placeholder(R.drawable.img_back)
                     .into(imageView);

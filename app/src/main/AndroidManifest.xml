@@ -119,10 +119,10 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.shifa.ui.property_details.PropertyDetailsActivity"
+            android:name="com.gp.shifa.ui.doctor_details.DoctorDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gp.shifa.ui.search.SearchActivity"
+            android:name="com.gp.shifa.ui.category_doctors.CategoryDoctorsActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
@@ -139,10 +139,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.gp.shifa.ui.mobile_search.MobileSearchActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.gp.shifa.ui.user.profile.MyProfileActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity

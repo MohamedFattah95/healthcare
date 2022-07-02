@@ -1,8 +1,8 @@
 
-package com.gp.shifa.ui.home;
+package com.gp.shifa.ui.category_doctors;
 
-public interface HomeNavigator {
 
+public interface CategoryDoctorsNavigator {
     void handleError(Throwable throwable);
 
     void showMyApiMessage(String message);

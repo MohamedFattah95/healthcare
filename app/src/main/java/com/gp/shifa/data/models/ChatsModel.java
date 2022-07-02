@@ -4,42 +4,41 @@ import com.google.gson.annotations.SerializedName;
 
 public class ChatsModel {
 
-    /**
-     * sender_user_id : 310
-     * receiver_user_id : 298
-     * created_at : 2021-01-12T15:57:40.000000Z
-     * chat_id : 298,310
-     * sender_user : {"id":310,"name":"تاجر","image":"clients/310_mg_20210103_102317304.jpg__5ff17f0213164_.jpg"}
-     * receiver_user : {"id":298,"name":"مشهور 1","image":"clients/298_3.jpg__5ff718322e8b9_.jpg"}
-     */
-
-    @SerializedName("sender_user_id")
-    private int senderId;
-    @SerializedName("receiver_user_id")
-    private int receiverId;
+    @SerializedName("id")
+    private int id;
+    @SerializedName("user_id")
+    private int userId;
+    @SerializedName("medical_id")
+    private int medicalId;
     @SerializedName("created_at")
     private String createdAt;
-    @SerializedName("chat_id")
+    @SerializedName("updated_at")
+    private String updatedAt;
+
     private String roomId;
-    @SerializedName("sender_user")
-    private SenderUserBean senderUser;
-    @SerializedName("receiver_user")
-    private ReceiverUserBean receiverUser;
 
-    public int getSenderId() {
-        return senderId;
+    public int getId() {
+        return id;
     }
 
-    public void setSenderId(int senderId) {
-        this.senderId = senderId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getReceiverId() {
-        return receiverId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setReceiverId(int receiverId) {
-        this.receiverId = receiverId;
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getMedicalId() {
+        return medicalId;
+    }
+
+    public void setMedicalId(int medicalId) {
+        this.medicalId = medicalId;
     }
 
     public String getCreatedAt() {
@@ -50,99 +49,20 @@ public class ChatsModel {
         this.createdAt = createdAt;
     }
 
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     public String getRoomId() {
+        if (userId < medicalId) {
+            roomId = userId + "," + medicalId;
+        } else {
+            roomId = medicalId + "," + userId;
+        }
         return roomId;
-    }
-
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
-    }
-
-    public SenderUserBean getSenderUser() {
-        return senderUser;
-    }
-
-    public void setSenderUser(SenderUserBean senderUser) {
-        this.senderUser = senderUser;
-    }
-
-    public ReceiverUserBean getReceiverUser() {
-        return receiverUser;
-    }
-
-    public void setReceiverUser(ReceiverUserBean receiverUser) {
-        this.receiverUser = receiverUser;
-    }
-
-    public static class SenderUserBean {
-        /**
-         * id : 310
-         * name : تاجر
-         * image : clients/310_mg_20210103_102317304.jpg__5ff17f0213164_.jpg
-         */
-
-        private int id;
-        private String name;
-        private String image;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getImage() {
-            return image;
-        }
-
-        public void setImage(String image) {
-            this.image = image;
-        }
-    }
-
-    public static class ReceiverUserBean {
-        /**
-         * id : 298
-         * name : مشهور 1
-         * image : clients/298_3.jpg__5ff718322e8b9_.jpg
-         */
-
-        private int id;
-        private String name;
-        private String image;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getImage() {
-            return image;
-        }
-
-        public void setImage(String image) {
-            this.image = image;
-        }
     }
 }

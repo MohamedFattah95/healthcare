@@ -8,10 +8,10 @@
         android:title="@string/my_account" />
 
     <item
-        android:id="@+id/notifications"
+        android:id="@+id/doctors"
         android:enabled="true"
-        android:icon="@drawable/ic_notifications_bottom_nav"
-        android:title="@string/notifications" />
+        android:icon="@drawable/ic_doctor"
+        android:title="@string/doctors" />
 
     <item
         android:id="@+id/home"

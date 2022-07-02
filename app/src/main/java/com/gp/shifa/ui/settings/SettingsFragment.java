@@ -17,14 +17,8 @@ import com.gp.shifa.R;
 import com.gp.shifa.databinding.DialogSelectLanguageBinding;
 import com.gp.shifa.databinding.FragmentSettingsBinding;
 import com.gp.shifa.di.component.FragmentComponent;
-import com.gp.shifa.ui.about.AboutActivity;
 import com.gp.shifa.ui.base.BaseFragment;
-import com.gp.shifa.ui.contact_us.ContactUsActivity;
-import com.gp.shifa.ui.faqs.FAQsActivity;
-import com.gp.shifa.ui.intro.IntroActivity;
 import com.gp.shifa.ui.main.MainActivity;
-import com.gp.shifa.ui.privacy_policy.PrivacyPolicyActivity;
-import com.gp.shifa.ui.terms.TermsActivity;
 import com.gp.shifa.ui.user.change_password.ChangePasswordActivity;
 import com.gp.shifa.utils.AppUtils;
 import com.gp.shifa.utils.LanguageHelper;
@@ -70,27 +64,22 @@ public class SettingsFragment extends BaseFragment<SettingsViewModel> implements
 
         setUpOnViewClicked();
 
+        if (!mViewModel.getDataManager().isUserLogged()) {
+            binding.tvChangePassword.setVisibility(View.GONE);
+            binding.vChangPass.setVisibility(View.GONE);
+        }
+
     }
 
     private void setUpOnViewClicked() {
 
         binding.tvChangePassword.setOnClickListener(v -> startActivity(ChangePasswordActivity.newIntent(getActivity())));
 
-        binding.tvPrivacyPolicy.setOnClickListener(v -> startActivity(PrivacyPolicyActivity.newIntent(getActivity())));
-
-        binding.tvTerms.setOnClickListener(v -> startActivity(TermsActivity.newIntent(getActivity())));
-
-        binding.tvAbout.setOnClickListener(v -> startActivity(AboutActivity.newIntent(getActivity())));
-
-        binding.tvFaq.setOnClickListener(v -> startActivity(FAQsActivity.newIntent(getActivity())));
-
-        binding.tvContactUs.setOnClickListener(v -> startActivity(ContactUsActivity.newIntent(getActivity())));
-
         binding.tvLang.setOnClickListener(v -> showLanguageDialog());
 
         binding.tvRateUs.setOnClickListener(v -> AppUtils.openPlayStoreForApp(getActivity()));
 
-        binding.tvUsingApp.setOnClickListener(v -> startActivity(IntroActivity.newIntent(getActivity())));
+//        binding.tvUsingApp.setOnClickListener(v -> startActivity(IntroActivity.newIntent(getActivity())));
 
         binding.tvShareApp.setOnClickListener(v -> shareApp());
 
@@ -160,12 +149,8 @@ public class SettingsFragment extends BaseFragment<SettingsViewModel> implements
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
-        String appName = mViewModel.getDataManager().getSettingsObject().getAppTitle();
-        String shareMessage = mViewModel.getDataManager().getSettingsObject().getAppShareNote();
-        String androidLink = mViewModel.getDataManager().getSettingsObject().getAppAndroidLnk();
-        String iosLink = mViewModel.getDataManager().getSettingsObject().getAppIosLink();
-        String shareBody = appName + "\n" + shareMessage + "\n" + getString(R.string.for_android) + ":\n" + androidLink + "\n" + getString(R.string.for_ios) + ":\n" + iosLink;
-        shareIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+//        String shareBody = appName + "\n" + shareMessage + "\n" + getString(R.string.for_android) + ":\n" + androidLink + "\n" + getString(R.string.for_ios) + ":\n" + iosLink;
+        shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.app_name));
         this.startActivity(Intent.createChooser(shareIntent, getString(R.string.share_via)));
     }
 

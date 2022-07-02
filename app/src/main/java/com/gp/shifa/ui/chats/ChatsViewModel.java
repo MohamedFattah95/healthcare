@@ -26,7 +26,7 @@ public class ChatsViewModel extends BaseViewModel<ChatsNavigator> {
 
     public void getUserChats() {
         getCompositeDisposable().add(getDataManager()
-                .getUserChats(getDataManager().getCurrentUserId())
+                .getUserChats()
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {

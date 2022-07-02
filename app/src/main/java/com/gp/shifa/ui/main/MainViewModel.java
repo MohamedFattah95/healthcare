@@ -22,22 +22,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         return logoutLiveData;
     }
 
-
-    public void getAppSettings() {
-        getCompositeDisposable().add(getDataManager()
-                .getSettings()
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(response -> {
-
-                    if (response.getStatus().equals("1"))
-                        getDataManager().setSettingsObject(response.getData());
-
-                }, throwable -> {
-                    getNavigator().handleError(throwable);
-                }));
-    }
-
     public void doLogout() {
         getCompositeDisposable().add(getDataManager()
                 .doLogout()

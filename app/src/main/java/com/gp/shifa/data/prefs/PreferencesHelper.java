@@ -2,7 +2,6 @@
 package com.gp.shifa.data.prefs;
 
 import com.gp.shifa.data.DataManager;
-import com.gp.shifa.data.models.SettingsModel;
 import com.gp.shifa.data.models.UserModel;
 
 public interface PreferencesHelper {
@@ -10,10 +9,6 @@ public interface PreferencesHelper {
     void setUserObject(UserModel userModel);
 
     Boolean isUserLogged();
-
-    SettingsModel getSettingsObject();
-
-    void setSettingsObject(SettingsModel settingsModel);
 
     UserModel getUserObject();
 

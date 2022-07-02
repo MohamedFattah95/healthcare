@@ -19,17 +19,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.gp.shifa.R;
 import com.gp.shifa.databinding.ActivityMainBinding;
 import com.gp.shifa.di.component.ActivityComponent;
-import com.gp.shifa.ui.add_commercial.AddCommercialFragment;
 import com.gp.shifa.ui.base.BaseActivity;
 import com.gp.shifa.ui.base.BaseFragment;
 import com.gp.shifa.ui.categories.CategoriesFragment;
 import com.gp.shifa.ui.chats.ChatsFragment;
-import com.gp.shifa.ui.commission.CommissionFragment;
 import com.gp.shifa.ui.doctors.DoctorsFragment;
 import com.gp.shifa.ui.edit_profile.EditProfileActivity;
 import com.gp.shifa.ui.favorites.FavoritesFragment;
 import com.gp.shifa.ui.home.HomeFragment;
-import com.gp.shifa.ui.notifications.NotificationsFragment;
 import com.gp.shifa.ui.settings.SettingsFragment;
 import com.gp.shifa.ui.user.login.LoginActivity;
 import com.gp.shifa.ui.user.profile.ProfileFragment;
@@ -83,14 +80,11 @@ public class MainActivity extends BaseActivity<MainViewModel> implements MainNav
         navigation_fragments = new ArrayList<>();
         navigation_fragments.add(HomeFragment.newInstance(0));
         navigation_fragments.add(FavoritesFragment.newInstance(0));
-        navigation_fragments.add(CommissionFragment.newInstance(0));
-        navigation_fragments.add(AddCommercialFragment.newInstance(0));
         navigation_fragments.add(ProfileFragment.newInstance(0));
-        navigation_fragments.add(NotificationsFragment.newInstance(0));
+        navigation_fragments.add(DoctorsFragment.newInstance(0));
         navigation_fragments.add(CategoriesFragment.newInstance(0));
         navigation_fragments.add(ChatsFragment.newInstance(0));
         navigation_fragments.add(SettingsFragment.newInstance(0));
-        navigation_fragments.add(DoctorsFragment.newInstance(0));
         fragNavController.setRootFragments(navigation_fragments);
 
         fragNavController.setCreateEager(true);
@@ -155,13 +149,9 @@ public class MainActivity extends BaseActivity<MainViewModel> implements MainNav
 
         if (mViewModel.getDataManager().isUserLogged()) {
             binding.navigationView.getMenu().findItem(R.id.navFavs).setVisible(true);
-            binding.navigationView.getMenu().findItem(R.id.navCommission).setVisible(true);
-            binding.navigationView.getMenu().findItem(R.id.navAddCommercial).setVisible(true);
             binding.navigationView.getMenu().findItem(R.id.navLogout).setVisible(true);
         } else {
             binding.navigationView.getMenu().findItem(R.id.navFavs).setVisible(false);
-            binding.navigationView.getMenu().findItem(R.id.navCommission).setVisible(false);
-            binding.navigationView.getMenu().findItem(R.id.navAddCommercial).setVisible(false);
             binding.navigationView.getMenu().findItem(R.id.navLogout).setVisible(false);
         }
 
@@ -180,8 +170,6 @@ public class MainActivity extends BaseActivity<MainViewModel> implements MainNav
         subscribeToLiveData();
         handleNavItems();
 
-        mViewModel.getAppSettings();
-
     }
 
     private void setupNavMenu() {
@@ -194,7 +182,9 @@ public class MainActivity extends BaseActivity<MainViewModel> implements MainNav
                         case R.id.navHome:
                             fragNavController.switchTab(0);
                             handleToolBar(navigation_fragments.get(0));
-                            ((HomeFragment) navigation_fragments.get(0)).refreshData();
+
+                            if (fragNavController.getCurrentFrag() instanceof HomeFragment)
+                                ((HomeFragment) navigation_fragments.get(0)).refreshData();
 
                             binding.homeContainer.bottomNavigation.setSelectedItemId(R.id.home);
 
@@ -208,35 +198,11 @@ public class MainActivity extends BaseActivity<MainViewModel> implements MainNav
                             binding.homeContainer.bottomNavigation.setSelected(false);
 
                             return true;
-                        case R.id.navCommission:
-                            fragNavController.switchTab(2);
-                            handleToolBar(navigation_fragments.get(2));
-                            ((CommissionFragment) navigation_fragments.get(2)).refreshData();
-
-                            binding.homeContainer.bottomNavigation.setSelected(false);
-                            return true;
-                        case R.id.navAddCommercial:
-                            fragNavController.switchTab(3);
-                            handleToolBar(navigation_fragments.get(3));
-                            ((AddCommercialFragment) navigation_fragments.get(3)).refreshData();
-
-                            binding.homeContainer.bottomNavigation.setSelected(false);
-                            return true;
                         case R.id.navSettings:
 
-                            fragNavController.switchTab(8);
-                            handleToolBar(navigation_fragments.get(8));
-                            ((SettingsFragment) navigation_fragments.get(8)).refreshData();
-
-                            binding.homeContainer.bottomNavigation.setSelected(false);
-
-                            return true;
-
-                        case R.id.navDoctors:
-
-                            fragNavController.switchTab(9);
-                            handleToolBar(navigation_fragments.get(9));
-                            ((DoctorsFragment) navigation_fragments.get(9)).refreshData();
+                            fragNavController.switchTab(6);
+                            handleToolBar(navigation_fragments.get(6));
+                            ((SettingsFragment) navigation_fragments.get(6)).refreshData();
 
                             binding.homeContainer.bottomNavigation.setSelected(false);
 
@@ -256,9 +222,9 @@ public class MainActivity extends BaseActivity<MainViewModel> implements MainNav
 
 
     public void navigateToProfile() {
-        fragNavController.switchTab(4);
-        handleToolBar(navigation_fragments.get(4));
-        ((ProfileFragment) navigation_fragments.get(4)).refreshData();
+        fragNavController.switchTab(2);
+        handleToolBar(navigation_fragments.get(2));
+        ((ProfileFragment) navigation_fragments.get(2)).refreshData();
 
         binding.homeContainer.bottomNavigation.setSelectedItemId(R.id.profile);
     }
@@ -267,7 +233,7 @@ public class MainActivity extends BaseActivity<MainViewModel> implements MainNav
         if (fragment instanceof HomeFragment) {
             binding.toolbar.imgBarReadAll.setVisibility(View.GONE);
             binding.toolbar.imgBarEditProfile.setVisibility(View.GONE);
-            binding.toolbar.imgBarSearch.setVisibility(View.VISIBLE);
+            binding.toolbar.imgBarSearch.setVisibility(View.GONE);
             binding.toolbar.searchBar.setVisibility(View.GONE);
             binding.toolbar.toolbarTitle.setText(getText(R.string.home_menu));
         } else if (fragment instanceof FavoritesFragment) {
@@ -276,18 +242,6 @@ public class MainActivity extends BaseActivity<MainViewModel> implements MainNav
             binding.toolbar.imgBarSearch.setVisibility(View.GONE);
             binding.toolbar.searchBar.setVisibility(View.GONE);
             binding.toolbar.toolbarTitle.setText(getText(R.string.my_favorites));
-        } else if (fragment instanceof CommissionFragment) {
-            binding.toolbar.imgBarReadAll.setVisibility(View.GONE);
-            binding.toolbar.imgBarEditProfile.setVisibility(View.GONE);
-            binding.toolbar.imgBarSearch.setVisibility(View.GONE);
-            binding.toolbar.searchBar.setVisibility(View.GONE);
-            binding.toolbar.toolbarTitle.setText(getText(R.string.commission));
-        } else if (fragment instanceof AddCommercialFragment) {
-            binding.toolbar.imgBarReadAll.setVisibility(View.GONE);
-            binding.toolbar.imgBarEditProfile.setVisibility(View.GONE);
-            binding.toolbar.imgBarSearch.setVisibility(View.GONE);
-            binding.toolbar.searchBar.setVisibility(View.GONE);
-            binding.toolbar.toolbarTitle.setText(getText(R.string.add_commercial));
         } else if (fragment instanceof SettingsFragment) {
             binding.toolbar.imgBarReadAll.setVisibility(View.GONE);
             binding.toolbar.imgBarEditProfile.setVisibility(View.GONE);
@@ -303,15 +257,6 @@ public class MainActivity extends BaseActivity<MainViewModel> implements MainNav
             binding.toolbar.imgBarSearch.setVisibility(View.GONE);
             binding.toolbar.searchBar.setVisibility(View.GONE);
             binding.toolbar.toolbarTitle.setText(getText(R.string.my_account));
-        } else if (fragment instanceof NotificationsFragment) {
-            if (mViewModel.getDataManager().isUserLogged())
-                binding.toolbar.imgBarReadAll.setVisibility(View.VISIBLE);
-            else
-                binding.toolbar.imgBarReadAll.setVisibility(View.GONE);
-            binding.toolbar.imgBarEditProfile.setVisibility(View.GONE);
-            binding.toolbar.imgBarSearch.setVisibility(View.GONE);
-            binding.toolbar.searchBar.setVisibility(View.GONE);
-            binding.toolbar.toolbarTitle.setText(getText(R.string.notifications));
         } else if (fragment instanceof CategoriesFragment) {
             binding.toolbar.imgBarReadAll.setVisibility(View.GONE);
             binding.toolbar.imgBarEditProfile.setVisibility(View.GONE);
@@ -409,23 +354,23 @@ public class MainActivity extends BaseActivity<MainViewModel> implements MainNav
         switch (item.getItemId()) {
             case R.id.profile:
                 if (fragNavController.getCurrentFrag() instanceof ProfileFragment) {
-                    ((ProfileFragment) navigation_fragments.get(4)).refreshData();
+                    ((ProfileFragment) navigation_fragments.get(2)).refreshData();
                     return true;
                 }
 
-                fragNavController.switchTab(4);
-                handleToolBar(navigation_fragments.get(4));
+                fragNavController.switchTab(2);
+                handleToolBar(navigation_fragments.get(2));
 
                 return true;
-            case R.id.notifications:
+            case R.id.doctors:
 
-                if (fragNavController.getCurrentFrag() instanceof NotificationsFragment) {
-                    ((NotificationsFragment) navigation_fragments.get(5)).refreshData();
+                if (fragNavController.getCurrentFrag() instanceof DoctorsFragment) {
+                    ((DoctorsFragment) navigation_fragments.get(3)).refreshData();
                     return true;
                 }
 
-                fragNavController.switchTab(5);
-                handleToolBar(navigation_fragments.get(5));
+                fragNavController.switchTab(3);
+                handleToolBar(navigation_fragments.get(3));
 
                 return true;
             case R.id.home:
@@ -442,24 +387,24 @@ public class MainActivity extends BaseActivity<MainViewModel> implements MainNav
             case R.id.categories:
 
                 if (fragNavController.getCurrentFrag() instanceof CategoriesFragment) {
-                    ((CategoriesFragment) navigation_fragments.get(6)).refreshData();
+                    ((CategoriesFragment) navigation_fragments.get(4)).refreshData();
                     return true;
                 }
 
-                fragNavController.switchTab(6);
-                handleToolBar(navigation_fragments.get(6));
+                fragNavController.switchTab(4);
+                handleToolBar(navigation_fragments.get(4));
 
                 return true;
             case R.id.chats:
 
                 if (fragNavController.getCurrentFrag() instanceof ChatsFragment) {
-                    ((ChatsFragment) navigation_fragments.get(7)).refreshData();
+                    ((ChatsFragment) navigation_fragments.get(5)).refreshData();
                     return true;
                 }
 
-                fragNavController.switchTab(7);
-                handleToolBar(navigation_fragments.get(7));
-                ((ChatsFragment) navigation_fragments.get(7)).refreshData();
+                fragNavController.switchTab(5);
+                handleToolBar(navigation_fragments.get(5));
+                ((ChatsFragment) navigation_fragments.get(5)).refreshData();
 
                 return true;
         }
@@ -487,19 +432,19 @@ public class MainActivity extends BaseActivity<MainViewModel> implements MainNav
 
     public void navigateToCategories() {
 
-        ((CategoriesFragment) navigation_fragments.get(6)).refreshData();
+        ((CategoriesFragment) navigation_fragments.get(4)).refreshData();
         binding.homeContainer.bottomNavigation.setSelectedItemId(R.id.categories);
-        fragNavController.switchTab(6);
-        handleToolBar(navigation_fragments.get(6));
+        fragNavController.switchTab(4);
+        handleToolBar(navigation_fragments.get(4));
 
     }
 
     public void navigateToDoctors() {
 
-        ((DoctorsFragment) navigation_fragments.get(9)).refreshData();
-        binding.homeContainer.bottomNavigation.setSelected(false);
-        fragNavController.switchTab(9);
-        handleToolBar(navigation_fragments.get(9));
+        ((DoctorsFragment) navigation_fragments.get(3)).refreshData();
+        binding.homeContainer.bottomNavigation.setSelectedItemId(R.id.doctors);
+        fragNavController.switchTab(3);
+        handleToolBar(navigation_fragments.get(3));
 
     }
 }

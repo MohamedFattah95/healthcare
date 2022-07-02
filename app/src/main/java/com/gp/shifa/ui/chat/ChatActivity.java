@@ -46,12 +46,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.gp.shifa.BuildConfig;
 import com.gp.shifa.R;
+import com.gp.shifa.data.models.DoctorDetailsModel;
 import com.gp.shifa.data.models.MessageModel;
 import com.gp.shifa.databinding.ActivityChatBinding;
 import com.gp.shifa.di.component.ActivityComponent;
 import com.gp.shifa.ui.base.BaseActivity;
+import com.gp.shifa.ui.doctor_details.DoctorDetailsActivity;
 import com.gp.shifa.ui.main.MainActivity;
-import com.gp.shifa.ui.member_profile.MemberProfileActivity;
 import com.gp.shifa.utils.CommonUtils;
 import com.gp.shifa.utils.DateUtility;
 import com.gp.shifa.utils.ErrorHandlingUtils;
@@ -108,6 +109,8 @@ public class ChatActivity extends BaseActivity<ChatViewModel> implements ChatNav
 
     String badWords = null;
 
+    DoctorDetailsModel doctorDetailsModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +118,7 @@ public class ChatActivity extends BaseActivity<ChatViewModel> implements ChatNav
         View view = binding.getRoot();
         setContentView(view);
         mViewModel.setNavigator(this);
+        doctorDetailsModel = (DoctorDetailsModel) getIntent().getSerializableExtra("doctor");
 
         ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
                 .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig())
@@ -126,6 +130,7 @@ public class ChatActivity extends BaseActivity<ChatViewModel> implements ChatNav
         subscribeViewModel();
 
         setUp();
+
     }
 
     private void setUp() {
@@ -157,10 +162,13 @@ public class ChatActivity extends BaseActivity<ChatViewModel> implements ChatNav
         }
         mFileRecord = this.getCacheDir().getAbsolutePath() + "/record_voice.mp3";
 
-        showLoading();
-        mViewModel.getUserInfo(receiverId);
-        mViewModel.getBadWords();
-
+        if (getIntent().hasExtra("doctor")) {
+            bindMemberData(doctorDetailsModel.getTitle() + " " + doctorDetailsModel.getName(),
+                    doctorDetailsModel.getImgSrc()
+                            + "/" + doctorDetailsModel.getImg(),
+                    doctorDetailsModel.getRating(),
+                    doctorDetailsModel.getRating());
+        }
 
     }
 
@@ -172,18 +180,10 @@ public class ChatActivity extends BaseActivity<ChatViewModel> implements ChatNav
             Log.e(TAG, "ChatViewModel: " + "Notification Sent");
         });
 
-        mViewModel.getBadWordsLiveData().observe(this, response -> {
-            hideLoading();
-            badWords = response.getData();
-        });
 
         mViewModel.getUserInfoLiveData().observe(this, response -> {
             hideLoading();
-            bindMemberData(response.getData().getUser().getName(),
-                    mViewModel.getDataManager().getUserObject().getUser().getImgSrc()
-                            + "/" + mViewModel.getDataManager().getUserObject().getUser().getImg(),
-                    0,
-                    0);
+
         });
 
     }
@@ -237,7 +237,7 @@ public class ChatActivity extends BaseActivity<ChatViewModel> implements ChatNav
         binding.toolbar.delegateName.setText(name);
         binding.toolbar.ratingBarDelegate.setRating(rate);
 
-        binding.toolbar.tvRateCount.setText("(" + rateCount + ")");
+        binding.toolbar.tvRateCount.setText("(" + rateCount + "/5)");
 
     }
 
@@ -285,7 +285,7 @@ public class ChatActivity extends BaseActivity<ChatViewModel> implements ChatNav
         });
 
         binding.toolbar.llMember.setOnClickListener(v -> {
-            startActivity(MemberProfileActivity.newIntent(this).putExtra("userId", receiverId));
+            startActivity(DoctorDetailsActivity.newIntent(this).putExtra("doctor_id", receiverId));
         });
 
         binding.imagesBtn.setOnClickListener(v ->
@@ -380,7 +380,7 @@ public class ChatActivity extends BaseActivity<ChatViewModel> implements ChatNav
                     lat = 0;
                     lng = 0;
 
-                    mViewModel.sendChatNotification(senderId, receiverId);
+//                    mViewModel.sendChatNotification(senderId, receiverId);
                 }
             }
         };
@@ -438,7 +438,7 @@ public class ChatActivity extends BaseActivity<ChatViewModel> implements ChatNav
                 hideLoading();
                 roomRef.child(messageKey).setValue(message);
 
-                mViewModel.sendChatNotification(senderId, receiverId);
+//                mViewModel.sendChatNotification(senderId, receiverId);
             }
         }));
     }
@@ -485,7 +485,7 @@ public class ChatActivity extends BaseActivity<ChatViewModel> implements ChatNav
                 roomRef.child(messageKey).setValue(message);
                 binding.messageEditText.setText("");
 
-                mViewModel.sendChatNotification(senderId, receiverId);
+//                mViewModel.sendChatNotification(senderId, receiverId);
             }
         }
     }
@@ -512,7 +512,7 @@ public class ChatActivity extends BaseActivity<ChatViewModel> implements ChatNav
                         mChatImgsAdapter.imagesList.clear();
                         mChatImgsAdapter.notifyDataSetChanged();
 
-                        mViewModel.sendChatNotification(senderId, receiverId);
+//                        mViewModel.sendChatNotification(senderId, receiverId);
                     }
                 }));
             }

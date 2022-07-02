@@ -14,13 +14,11 @@ import com.gp.shifa.utils.rx.SchedulerProvider;
 public class ChatViewModel extends BaseViewModel<ChatNavigator> {
     private MutableLiveData<DataWrapperModel<Void>> chatLiveData;
     private MutableLiveData<DataWrapperModel<UserModel>> userInfoLiveData;
-    private MutableLiveData<DataWrapperModel<String>> badWordsLiveData;
 
     public ChatViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
         chatLiveData = new MutableLiveData<>();
         userInfoLiveData = new MutableLiveData<>();
-        badWordsLiveData = new MutableLiveData<>();
     }
 
     public LiveData<DataWrapperModel<Void>> getChatNotificationLiveData() {
@@ -31,21 +29,21 @@ public class ChatViewModel extends BaseViewModel<ChatNavigator> {
         return userInfoLiveData;
     }
 
-    public MutableLiveData<DataWrapperModel<String>> getBadWordsLiveData() {
-        return badWordsLiveData;
+    public void setUserInfoLiveData(MutableLiveData<DataWrapperModel<UserModel>> userInfoLiveData) {
+        this.userInfoLiveData = userInfoLiveData;
     }
 
-    public void sendChatNotification(int senderId, int receiverId) {
-        getCompositeDisposable().add(getDataManager()
-                .sendChatNotif(senderId, receiverId)
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(wrapperModel -> {
-                    chatLiveData.setValue(wrapperModel);
-                }, throwable -> {
-                    getNavigator().handleError(throwable);
-                }));
-    }
+    //    public void sendChatNotification(int senderId, int receiverId) {
+//        getCompositeDisposable().add(getDataManager()
+//                .sendChatNotif(senderId, receiverId)
+//                .subscribeOn(getSchedulerProvider().io())
+//                .observeOn(getSchedulerProvider().ui())
+//                .subscribe(wrapperModel -> {
+//                    chatLiveData.setValue(wrapperModel);
+//                }, throwable -> {
+//                    getNavigator().handleError(throwable);
+//                }));
+//    }
 
     public void getUserInfo(int receiverId) {
         getCompositeDisposable().add(getDataManager()
@@ -56,23 +54,6 @@ public class ChatViewModel extends BaseViewModel<ChatNavigator> {
 
                     if (response.getStatus().equals("1"))
                         userInfoLiveData.setValue(response);
-                    else
-                        getNavigator().showMyApiMessage(response.getMessage());
-
-                }, throwable -> {
-                    getNavigator().handleError(throwable);
-                }));
-    }
-
-    public void getBadWords() {
-        getCompositeDisposable().add(getDataManager()
-                .getBadWordsApiCall()
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(response -> {
-
-                    if (response.getStatus().equals("1"))
-                        badWordsLiveData.setValue(response);
                     else
                         getNavigator().showMyApiMessage(response.getMessage());
 

@@ -6,36 +6,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.gp.shifa.ViewModelProviderFactory;
 import com.gp.shifa.data.DataManager;
-import com.gp.shifa.ui.about.AboutViewModel;
 import com.gp.shifa.ui.base.BaseActivity;
+import com.gp.shifa.ui.category_doctors.CategoriesDoctorsAdapter;
+import com.gp.shifa.ui.category_doctors.CategoryDoctorsViewModel;
 import com.gp.shifa.ui.chat.ChatViewModel;
 import com.gp.shifa.ui.common.SliderAdapter;
-import com.gp.shifa.ui.contact_us.ContactUsViewModel;
+import com.gp.shifa.ui.doctor_details.ClinicsAdapter;
+import com.gp.shifa.ui.doctor_details.DoctorDetailsViewModel;
 import com.gp.shifa.ui.edit_profile.EditProfileViewModel;
 import com.gp.shifa.ui.error_handler.ErrorHandlerViewModel;
-import com.gp.shifa.ui.faqs.FAQsAdapter;
-import com.gp.shifa.ui.faqs.FAQsViewModel;
 import com.gp.shifa.ui.intro.IntroViewModel;
 import com.gp.shifa.ui.main.MainViewModel;
-import com.gp.shifa.ui.member_profile.MemberProfilePagerAdapter;
-import com.gp.shifa.ui.member_profile.MemberProfileViewModel;
-import com.gp.shifa.ui.member_profile.member_ads.MemberAdsAdapter;
-import com.gp.shifa.ui.mobile_search.MembersAdapter;
-import com.gp.shifa.ui.mobile_search.MobileSearchViewModel;
-import com.gp.shifa.ui.notifications.NotificationsAdapter;
-import com.gp.shifa.ui.notifications.NotificationsViewModel;
-import com.gp.shifa.ui.packages.PackagesAdapter;
-import com.gp.shifa.ui.packages.PackagesViewModel;
-import com.gp.shifa.ui.privacy_policy.PrivacyPolicyViewModel;
-import com.gp.shifa.ui.property_details.PropertyDetailsViewModel;
-import com.gp.shifa.ui.property_details.PropertySpecsAdapter;
-import com.gp.shifa.ui.search.SearchViewModel;
 import com.gp.shifa.ui.select_language.SelectLanguageViewModel;
 import com.gp.shifa.ui.splash.SplashViewModel;
-import com.gp.shifa.ui.terms.TermsViewModel;
 import com.gp.shifa.ui.user.change_password.ChangePasswordViewModel;
 import com.gp.shifa.ui.user.login.LoginViewModel;
-import com.gp.shifa.ui.user.profile.ProfilePagerAdapter;
 import com.gp.shifa.ui.user.profile.ProfileViewModel;
 import com.gp.shifa.ui.user.register.RegisterViewModel;
 import com.gp.shifa.ui.user.reset_password.ResetPasswordViewModel;
@@ -55,43 +40,13 @@ public class ActivityModule {
     }
 
     @Provides
-    MemberProfilePagerAdapter provideMemberProfilePagerAdapter() {
-        return new MemberProfilePagerAdapter(activity);
+    CategoriesDoctorsAdapter provideCategoriesDoctorsAdapter() {
+        return new CategoriesDoctorsAdapter(new ArrayList<>());
     }
 
     @Provides
-    ProfilePagerAdapter provideProfilePagerAdapter() {
-        return new ProfilePagerAdapter(activity);
-    }
-
-    @Provides
-    NotificationsAdapter provideNotificationsAdapter() {
-        return new NotificationsAdapter(new ArrayList<>());
-    }
-
-    @Provides
-    PackagesAdapter providePackagesAdapter() {
-        return new PackagesAdapter(new ArrayList<>());
-    }
-
-    @Provides
-    PropertySpecsAdapter providePropertySpecsAdapter() {
-        return new PropertySpecsAdapter(new ArrayList<>());
-    }
-
-    @Provides
-    FAQsAdapter provideFAQsAdapter() {
-        return new FAQsAdapter(new ArrayList<>());
-    }
-
-    @Provides
-    MembersAdapter provideMembersAdapter() {
-        return new MembersAdapter(new ArrayList<>());
-    }
-
-    @Provides
-    MemberAdsAdapter provideMemberAdsAdapter() {
-        return new MemberAdsAdapter(new ArrayList<>());
+    ClinicsAdapter provideClinicsAdapter() {
+        return new ClinicsAdapter(new ArrayList<>());
     }
 
     @Provides
@@ -140,13 +95,6 @@ public class ActivityModule {
     }
 
     @Provides
-    TermsViewModel provideTermsViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        Supplier<TermsViewModel> supplier = () -> new TermsViewModel(dataManager, schedulerProvider);
-        ViewModelProviderFactory<TermsViewModel> factory = new ViewModelProviderFactory<>(TermsViewModel.class, supplier);
-        return new ViewModelProvider(activity, factory).get(TermsViewModel.class);
-    }
-
-    @Provides
     RegisterViewModel provideRegisterViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         Supplier<RegisterViewModel> supplier = () -> new RegisterViewModel(dataManager, schedulerProvider);
         ViewModelProviderFactory<RegisterViewModel> factory = new ViewModelProviderFactory<>(RegisterViewModel.class, supplier);
@@ -165,27 +113,6 @@ public class ActivityModule {
         Supplier<EditProfileViewModel> supplier = () -> new EditProfileViewModel(dataManager, schedulerProvider);
         ViewModelProviderFactory<EditProfileViewModel> factory = new ViewModelProviderFactory<>(EditProfileViewModel.class, supplier);
         return new ViewModelProvider(activity, factory).get(EditProfileViewModel.class);
-    }
-
-    @Provides
-    ContactUsViewModel provideComplaintsAndSuggestionsViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        Supplier<ContactUsViewModel> supplier = () -> new ContactUsViewModel(dataManager, schedulerProvider);
-        ViewModelProviderFactory<ContactUsViewModel> factory = new ViewModelProviderFactory<>(ContactUsViewModel.class, supplier);
-        return new ViewModelProvider(activity, factory).get(ContactUsViewModel.class);
-    }
-
-    @Provides
-    PrivacyPolicyViewModel providePrivacyPolicyViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        Supplier<PrivacyPolicyViewModel> supplier = () -> new PrivacyPolicyViewModel(dataManager, schedulerProvider);
-        ViewModelProviderFactory<PrivacyPolicyViewModel> factory = new ViewModelProviderFactory<>(PrivacyPolicyViewModel.class, supplier);
-        return new ViewModelProvider(activity, factory).get(PrivacyPolicyViewModel.class);
-    }
-
-    @Provides
-    NotificationsViewModel provideNotificationsViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        Supplier<NotificationsViewModel> supplier = () -> new NotificationsViewModel(dataManager, schedulerProvider);
-        ViewModelProviderFactory<NotificationsViewModel> factory = new ViewModelProviderFactory<>(NotificationsViewModel.class, supplier);
-        return new ViewModelProvider(activity, factory).get(NotificationsViewModel.class);
     }
 
     @Provides
@@ -210,45 +137,17 @@ public class ActivityModule {
     }
 
     @Provides
-    MemberProfileViewModel provideMemberProfileViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        Supplier<MemberProfileViewModel> supplier = () -> new MemberProfileViewModel(dataManager, schedulerProvider);
-        ViewModelProviderFactory<MemberProfileViewModel> factory = new ViewModelProviderFactory<>(MemberProfileViewModel.class, supplier);
-        return new ViewModelProvider(activity, factory).get(MemberProfileViewModel.class);
+    DoctorDetailsViewModel providePropertyDetailsViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
+        Supplier<DoctorDetailsViewModel> supplier = () -> new DoctorDetailsViewModel(dataManager, schedulerProvider);
+        ViewModelProviderFactory<DoctorDetailsViewModel> factory = new ViewModelProviderFactory<>(DoctorDetailsViewModel.class, supplier);
+        return new ViewModelProvider(activity, factory).get(DoctorDetailsViewModel.class);
     }
 
     @Provides
-    PropertyDetailsViewModel providePropertyDetailsViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        Supplier<PropertyDetailsViewModel> supplier = () -> new PropertyDetailsViewModel(dataManager, schedulerProvider);
-        ViewModelProviderFactory<PropertyDetailsViewModel> factory = new ViewModelProviderFactory<>(PropertyDetailsViewModel.class, supplier);
-        return new ViewModelProvider(activity, factory).get(PropertyDetailsViewModel.class);
-    }
-
-    @Provides
-    SearchViewModel provideSearchViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        Supplier<SearchViewModel> supplier = () -> new SearchViewModel(dataManager, schedulerProvider);
-        ViewModelProviderFactory<SearchViewModel> factory = new ViewModelProviderFactory<>(SearchViewModel.class, supplier);
-        return new ViewModelProvider(activity, factory).get(SearchViewModel.class);
-    }
-
-    @Provides
-    FAQsViewModel provideFAQsViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        Supplier<FAQsViewModel> supplier = () -> new FAQsViewModel(dataManager, schedulerProvider);
-        ViewModelProviderFactory<FAQsViewModel> factory = new ViewModelProviderFactory<>(FAQsViewModel.class, supplier);
-        return new ViewModelProvider(activity, factory).get(FAQsViewModel.class);
-    }
-
-    @Provides
-    AboutViewModel provideAboutViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        Supplier<AboutViewModel> supplier = () -> new AboutViewModel(dataManager, schedulerProvider);
-        ViewModelProviderFactory<AboutViewModel> factory = new ViewModelProviderFactory<>(AboutViewModel.class, supplier);
-        return new ViewModelProvider(activity, factory).get(AboutViewModel.class);
-    }
-
-    @Provides
-    MobileSearchViewModel provideMobileSearchViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        Supplier<MobileSearchViewModel> supplier = () -> new MobileSearchViewModel(dataManager, schedulerProvider);
-        ViewModelProviderFactory<MobileSearchViewModel> factory = new ViewModelProviderFactory<>(MobileSearchViewModel.class, supplier);
-        return new ViewModelProvider(activity, factory).get(MobileSearchViewModel.class);
+    CategoryDoctorsViewModel provideSearchViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
+        Supplier<CategoryDoctorsViewModel> supplier = () -> new CategoryDoctorsViewModel(dataManager, schedulerProvider);
+        ViewModelProviderFactory<CategoryDoctorsViewModel> factory = new ViewModelProviderFactory<>(CategoryDoctorsViewModel.class, supplier);
+        return new ViewModelProvider(activity, factory).get(CategoryDoctorsViewModel.class);
     }
 
     @Provides
@@ -256,13 +155,6 @@ public class ActivityModule {
         Supplier<ProfileViewModel> supplier = () -> new ProfileViewModel(dataManager, schedulerProvider);
         ViewModelProviderFactory<ProfileViewModel> factory = new ViewModelProviderFactory<>(ProfileViewModel.class, supplier);
         return new ViewModelProvider(activity, factory).get(ProfileViewModel.class);
-    }
-
-    @Provides
-    PackagesViewModel providePackagesViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        Supplier<PackagesViewModel> supplier = () -> new PackagesViewModel(dataManager, schedulerProvider);
-        ViewModelProviderFactory<PackagesViewModel> factory = new ViewModelProviderFactory<>(PackagesViewModel.class, supplier);
-        return new ViewModelProvider(activity, factory).get(PackagesViewModel.class);
     }
 
 }

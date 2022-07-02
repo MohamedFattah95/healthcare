@@ -4,10 +4,14 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.gp.shifa.BuildConfig;
 import com.gp.shifa.R;
 import com.gp.shifa.data.models.CategoriesModel;
 import com.gp.shifa.databinding.ItemEmptyViewBinding;
@@ -15,6 +19,7 @@ import com.gp.shifa.ui.base.BaseViewHolder;
 
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class CategoriesHomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
@@ -55,23 +60,24 @@ public class CategoriesHomeAdapter extends RecyclerView.Adapter<BaseViewHolder> 
 
     @Override
     public int getItemViewType(int position) {
-//        if (mCategoriesList != null && mCategoriesList.size() > 0) {
+        if (mCategoriesList != null && mCategoriesList.size() > 0) {
             return VIEW_TYPE_CATEGORY;
-//        } else {
-//            return VIEW_TYPE_EMPTY;
-//        }
+        } else {
+            return VIEW_TYPE_EMPTY;
+        }
     }
 
     @Override
     public int getItemCount() {
-//        if (mCategoriesList != null && mCategoriesList.size() > 0) {
-//            return mCategoriesList.size();
-//        } else {
-            return 8;
-//        }
+        if (mCategoriesList != null && mCategoriesList.size() > 0) {
+            return Math.min(mCategoriesList.size(), 8);
+        } else {
+            return 0;
+        }
     }
 
     public void addItems(List<CategoriesModel> list) {
+        mCategoriesList.clear();
         mCategoriesList.addAll(list);
         notifyDataSetChanged();
     }
@@ -86,27 +92,17 @@ public class CategoriesHomeAdapter extends RecyclerView.Adapter<BaseViewHolder> 
         notifyDataSetChanged();
     }
 
-    public void selectCategory(int position) {
-        for (int i = 0; i < mCategoriesList.size(); i++) {
-            mCategoriesList.get(i).setSelected(false);
-            notifyItemChanged(i, mCategoriesList.get(i));
-        }
-        mCategoriesList.get(position).setSelected(true);
-        notifyItemChanged(position, mCategoriesList.get(position));
-
-        mCallback.onCategorySelected(mCategoriesList.get(position), position);
-    }
-
     public interface Callback {
-
-        void onCategorySelected(CategoriesModel category, int position);
+        void onCategorySelected(CategoriesModel category);
     }
 
     @SuppressLint("NonConstantResourceId")
     public class CategoryViewHolder extends BaseViewHolder {
 
-//        @BindView(R.id.tv_category)
-//        AppCompatTextView tvCategory;
+        @BindView(R.id.catImage)
+        ImageView catImage;
+        @BindView(R.id.tvCatName)
+        AppCompatTextView tvCatName;
 
         public CategoryViewHolder(View itemView) {
             super(itemView);
@@ -120,31 +116,16 @@ public class CategoriesHomeAdapter extends RecyclerView.Adapter<BaseViewHolder> 
 
         public void onBind(int position) {
 
-//            CategoriesModel model = mCategoriesList.get(position);
-//
-//            tvCategory.setText(model.getTitle());
-//
-//            if (model.isSelected()) {
-//                tvCategory.setBackgroundTintList(ColorStateList.valueOf(itemView.getResources().getColor(R.color.colorPrimary)));
-//                tvCategory.setTextColor(itemView.getResources().getColor(R.color.white));
-//            } else {
-//                tvCategory.setBackgroundTintList(ColorStateList.valueOf(itemView.getResources().getColor(R.color.white)));
-//                tvCategory.setTextColor(itemView.getResources().getColor(R.color.colorPrimary));
-//            }
-//
-//            itemView.setOnClickListener(v -> {
-//
-//                for (int i = 0; i < mCategoriesList.size(); i++) {
-//                    mCategoriesList.get(i).setSelected(false);
-//                    notifyItemChanged(i, mCategoriesList.get(i));
-//                }
-//                mCategoriesList.get(position).setSelected(true);
-//                notifyItemChanged(position, mCategoriesList.get(position));
-//
-//                mCallback.onCategorySelected(model, position);
-//            });
-//
-//            setIsRecyclable(false);
+            CategoriesModel model = mCategoriesList.get(position);
+
+            tvCatName.setText(model.getName());
+
+            Glide.with(itemView)
+                    .load(BuildConfig.BASE_URL +
+                            "assets/web/img/category/" + model.getImg())
+                    .into(catImage);
+
+            itemView.setOnClickListener(v -> mCallback.onCategorySelected(model));
 
         }
     }

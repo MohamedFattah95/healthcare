@@ -9,14 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.gp.shifa.data.models.CategoriesModel;
 import com.gp.shifa.databinding.FragmentCategoriesBinding;
 import com.gp.shifa.di.component.FragmentComponent;
 import com.gp.shifa.ui.base.BaseFragment;
+import com.gp.shifa.ui.category_doctors.CategoryDoctorsActivity;
 import com.gp.shifa.utils.ErrorHandlingUtils;
 
 import javax.inject.Inject;
 
-public class CategoriesFragment extends BaseFragment<CategoriesViewModel> implements CategoriesNavigator {
+public class CategoriesFragment extends BaseFragment<CategoriesViewModel> implements CategoriesNavigator, CategoriesAdapter.Callback {
 
     @Inject
     LinearLayoutManager linearLayoutManager;
@@ -34,16 +36,15 @@ public class CategoriesFragment extends BaseFragment<CategoriesViewModel> implem
     }
 
     public void refreshData() {
-        if (mViewModel.getDataManager().isUserLogged()) {
-            binding.swipe.setRefreshing(true);
-            mViewModel.getActiveAreas();
-        }
+        binding.swipe.setRefreshing(true);
+        mViewModel.getCategories();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel.setNavigator(this);
+        categoriesAdapter.setCallback(this);
     }
 
     @Override
@@ -60,14 +61,13 @@ public class CategoriesFragment extends BaseFragment<CategoriesViewModel> implem
         binding.rvCategories.setAdapter(categoriesAdapter);
 
         binding.swipe.setOnRefreshListener(() -> {
-            if (mViewModel.getDataManager().isUserLogged()) {
-                showLoading();
-                binding.swipe.setRefreshing(true);
-                mViewModel.getActiveAreas();
-            } else {
-                binding.swipe.setRefreshing(false);
-            }
+            binding.swipe.setRefreshing(true);
+            mViewModel.getCategories();
         });
+
+
+        binding.swipe.setRefreshing(true);
+        mViewModel.getCategories();
 
         subscribeViewModel();
 
@@ -75,7 +75,10 @@ public class CategoriesFragment extends BaseFragment<CategoriesViewModel> implem
 
     private void subscribeViewModel() {
 
-        mViewModel.getRootCitiesLiveData().observe(requireActivity(), response -> {
+        mViewModel.getCategoriesLiveData().observe(requireActivity(), response -> {
+            hideLoading();
+            binding.swipe.setRefreshing(false);
+            categoriesAdapter.addItems(response.getData());
 
         });
 
@@ -90,6 +93,8 @@ public class CategoriesFragment extends BaseFragment<CategoriesViewModel> implem
     public void handleError(Throwable throwable) {
         hideLoading();
         ErrorHandlingUtils.handleErrors(throwable);
+        binding.swipe.setRefreshing(false);
+
     }
 
     @Override
@@ -99,4 +104,10 @@ public class CategoriesFragment extends BaseFragment<CategoriesViewModel> implem
         showErrorMessage(message);
     }
 
+    @Override
+    public void onCategorySelected(CategoriesModel category) {
+
+        startActivity(CategoryDoctorsActivity.newIntent(requireActivity()).putExtra("category", category));
+
+    }
 }

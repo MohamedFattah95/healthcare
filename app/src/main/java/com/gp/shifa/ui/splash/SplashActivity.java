@@ -10,12 +10,10 @@ import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.gp.shifa.databinding.ActivitySplashBinding;
 import com.gp.shifa.di.component.ActivityComponent;
 import com.gp.shifa.ui.base.BaseActivity;
+import com.gp.shifa.ui.doctor_details.DoctorDetailsActivity;
 import com.gp.shifa.ui.intro.IntroActivity;
 import com.gp.shifa.ui.main.MainActivity;
-import com.gp.shifa.ui.member_profile.MemberProfileActivity;
-import com.gp.shifa.ui.property_details.PropertyDetailsActivity;
 import com.gp.shifa.ui.select_language.SelectLanguageActivity;
-import com.gp.shifa.ui.user.profile.MyProfileActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -75,22 +73,8 @@ public class SplashActivity extends BaseActivity<SplashViewModel> implements Spl
                         if (deepLink != null) {
                             if (deepLink.getQueryParameter("item_id") != null) {
 
-                                startActivity(PropertyDetailsActivity.newIntent(SplashActivity.this)
+                                startActivity(DoctorDetailsActivity.newIntent(SplashActivity.this)
                                         .putExtra("itemId", Integer.valueOf(deepLink.getQueryParameter("item_id"))));
-                                finish();
-
-                            } else if (deepLink.getQueryParameter("member_id") != null) {
-
-                                if (mViewModel.getDataManager().isUserLogged() &&
-                                        mViewModel.getDataManager().getUserObject().getUser().getId() ==
-                                                Integer.parseInt(deepLink.getQueryParameter("member_id"))) {
-
-                                    startActivity(MyProfileActivity.newIntent(SplashActivity.this));
-
-                                } else {
-                                    startActivity(MemberProfileActivity.newIntent(SplashActivity.this)
-                                            .putExtra("userId", Integer.parseInt(deepLink.getQueryParameter("member_id"))));
-                                }
                                 finish();
 
                             }

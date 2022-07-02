@@ -52,7 +52,7 @@
                 android:orientation="horizontal">
 
                 <RatingBar
-                    android:id="@+id/ratingBarClient"
+                    android:id="@+id/ratingBar"
                     style="@android:style/Widget.Holo.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

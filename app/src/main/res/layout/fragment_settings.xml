@@ -41,94 +41,7 @@
             app:drawableStartCompat="@drawable/ic_lock_24" />
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:background="@color/light_gray" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvFaq"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_gravity="center"
-            android:drawablePadding="@dimen/_16sdp"
-            android:gravity="center_vertical"
-            android:text="@string/faqs"
-            android:textSize="@dimen/_10ssp"
-            app:drawableEndCompat="@drawable/ic_arrow_go"
-            app:drawableStartCompat="@drawable/ic_checklist" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:background="@color/light_gray" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvTerms"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_gravity="center"
-            android:drawablePadding="@dimen/_16sdp"
-            android:gravity="center_vertical"
-            android:text="@string/terms"
-            android:textSize="@dimen/_10ssp"
-            app:drawableEndCompat="@drawable/ic_arrow_go"
-            app:drawableStartCompat="@drawable/ic_document" />
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:background="@color/light_gray" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_privacy_policy"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_gravity="center"
-            android:drawablePadding="@dimen/_16sdp"
-            android:gravity="center_vertical"
-            android:text="@string/privacy_policy"
-            android:textSize="@dimen/_10ssp"
-            app:drawableEndCompat="@drawable/ic_arrow_go"
-            app:drawableStartCompat="@drawable/ic_contract" />
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:background="@color/light_gray" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_using_app"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_gravity="center"
-            android:drawablePadding="@dimen/_16sdp"
-            android:gravity="center_vertical"
-            android:text="@string/how_it_works"
-            android:textSize="@dimen/_10ssp"
-            app:drawableEndCompat="@drawable/ic_arrow_go"
-            app:drawableStartCompat="@drawable/ic_touch" />
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:background="@color/light_gray" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_about"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_gravity="center"
-            android:drawablePadding="@dimen/_16sdp"
-            android:gravity="center_vertical"
-            android:text="@string/about"
-            android:textSize="@dimen/_10ssp"
-            app:drawableEndCompat="@drawable/ic_arrow_go"
-            app:drawableStartCompat="@drawable/ic_lightbulb" />
-
-        <View
+            android:id="@+id/vChangPass"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"
             android:background="@color/light_gray" />
@@ -144,23 +57,6 @@
             android:textSize="@dimen/_10ssp"
             app:drawableEndCompat="@drawable/ic_arrow_go"
             app:drawableStartCompat="@drawable/ic_star" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:background="@color/light_gray" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvContactUs"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_gravity="center"
-            android:drawablePadding="@dimen/_16sdp"
-            android:gravity="center_vertical"
-            android:text="@string/contact_us"
-            android:textSize="@dimen/_10ssp"
-            app:drawableEndCompat="@drawable/ic_arrow_go"
-            app:drawableStartCompat="@drawable/ic_telegram" />
 
         <View
             android:layout_width="match_parent"
